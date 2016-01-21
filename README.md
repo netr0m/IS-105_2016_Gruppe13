@@ -1,3 +1,3 @@
 # IS-105_2016_Gruppe13
-Dette er en readme for repository for gruppe 13
-test erlend
+Erlend sin Branch
+Hei hei
