@@ -3,8 +3,8 @@
 Module med eksempler i uke 04 (informasjonsteori)
 Løsninger for klasseoppgavene 25.01.2016 implementeres her
 Løsningsforslag innleveres i gruppe-repositorien.
-GRUPPENR: ...
-STUDENTER: ...
+GRUPPENR: 13
+STUDENTER: Morten Amundsen, Nora Krogh, Erlend Sætre, Marius Fossli, Joakim Kilen, Tina Kvist
 '''
 
 def code():
