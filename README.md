@@ -10,7 +10,7 @@ git checkout develop
 
 Legg ønsket fil i lokal mappe og skriv følgende i cmd:
 ```sh
-- git add .
+- git add --all
 - git commit -m "Kommentar her"
 - git push origin develop
 ```
