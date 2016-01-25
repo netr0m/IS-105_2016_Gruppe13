@@ -1,7 +1,8 @@
-# Morten
-# This is a function which returns true/false if x is greater than y
-x = raw_input("Type a number to check if it is greater than y ")
-y = raw_input("Type a number to check towards x %r " % (x))
+# Erlend
+# This function substract two number and print an output
+a = int(raw_input("Press your first number "))
+b = int(raw_input("Then your second number "))
 
-print "Is %r greater than %r ? " % (x, y)
-print x > y
+sum = a - b
+
+print sum
