@@ -2,7 +2,7 @@
 Repository for gruppe 13, UiA.
 
 Hvis du skal laste opp f.eks. en fil, last opp til develop-branch først. Master branch er kun til ferdige oppgaver.
-Hvis du ønsker å laste opp til develop-branch med cmd/git bash, MÅ du endre på hvilken branch du bruker.
+Hvis du ønsker å laste opp til develop-branch med cmd/git bash, MÅ du endre på hvilken branch du bruker. Dette gjøres ved å skrive følgende:
 
 ```sh
 git checkout develop
