@@ -5,4 +5,4 @@ For å bruke/spille Rock-paper-scissors må du kjøre scriptet gjennom
 ```sh
 Visit http://www.skulpt.org/
 ```
-Fungerer ikke i POWERSHELL etc. :POOP:
+Fungerer ikke i POWERSHELL etc.
