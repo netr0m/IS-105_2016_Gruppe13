@@ -3,6 +3,9 @@ Repository for gruppe 13, UiA.
 
 For å bruke/spille Rock-paper-scissors må du kjøre scriptet gjennom
 ```sh
-Visit http://www.skulpt.org/
+http://www.skulpt.org/
 ```
-Fungerer ikke i POWERSHELL etc.
+```sh
+Paste scriptet og trykk "Run", skriv "Rock"/"Paper"/"Scissors" og trykk OK. Se resultatet i "Output"-boksen.
+```
+(Scriptet fungerer ikke i POWERSHELL etc.)
