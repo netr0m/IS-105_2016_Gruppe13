@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
-# oppgave fra uke 3 som skal være ferdig innen fredag 29.01.16
-# Stein-saks-papir program skrevet i Python.
-
+# Oppgavesoppgave #1, uke 3.
+# Gruppenr.: 13
+# Gruppemedlemmer: Morten Amundsen, Nora Krogh, Erlend Saetre, Marius Fosseli, Joakim Kilen, Tina Kvist
 '''
 Imports the random module to generate a random computer choice
 '''
