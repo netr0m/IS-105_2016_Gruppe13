@@ -9,6 +9,7 @@ import random;
 '''
 User input, checks if input is valid
 '''
+
 player = input("Please enter your choice (rock/paper/scissors): ");
 player = player.lower();
 while (player != "rock" and player != "paper" and player != "scissors"):
@@ -23,10 +24,13 @@ Generates a random number from 0-2, and converts the number into a rock, paper o
 botInt = random.randint(0,2);
 if (botInt == 0):
     bot = "rock";
+    print "The bot chose rock."
 elif (botInt == 1):
     bot = "paper";
+    print "The bot chose paper."
 elif (botInt == 2):
     bot = "scissors";
+    print "The bot chose scissors."
 else:
     bot = "Error occured. Please play again";
     
@@ -59,9 +63,3 @@ elif (player == "scissors"):
         print("The bot won..");
     else:
         print("You beat the bot!");
-        
-'''
-Prints the choices of both the player and the bot.
-'''
-print("You chose " + player + "\nThe computer chose " + computer);
-reload(module)
