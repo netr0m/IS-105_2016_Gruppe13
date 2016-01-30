@@ -14,11 +14,6 @@ def code():
     '''
     ascii = {'01000001':'A', ...}
     binary = {'A':'01000001', ...}
-    ascii = {'01000010':'B', ...}
-    binary = {'B':'01000010', ...}
-    ascii = {'01000011':'C', ...}
-    binary = {'C':'01000011', ...}
-    ascii = {}
     return (ascii, binary) # A suggested way to load tables in memory
 
 def encode():
