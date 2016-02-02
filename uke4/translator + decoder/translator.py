@@ -5,7 +5,7 @@ STUDENTER: Morten Amundsen, Nora Krogh, Erlend Sætre, Marius Fossli, Joakim Kil
 '''
 
 # This script translates from Binary to ASCII, and vice versa.
-# Dictionary
+# Translator:
 
 def translator ():
     b2a = {}
@@ -54,6 +54,7 @@ def asciiToBinary(bin2asc, text):
         
     return binSentence
 
-# The binary number/ascii text you'd like to translate.
+# The binary number you'd like to translate to String text
 print binaryToAscii(translator(), '011101000011001010011100110011101000')
+# The String text you'd like to translate to Binary number
 print asciiToBinary(translator(), "Have a nice day")
