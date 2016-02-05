@@ -1,6 +1,7 @@
 ## -*- coding: utf-8 -*-
 # Pokerspill for gruppe 13, IS-105
 # Morten Amundsen, Nora Krogh, Erlend Sætre, Marius Fosseli, Joakim Kilen
+#!/usr/bin/env python3
 import collections
 import itertools
 import random
@@ -15,12 +16,12 @@ class card:
         self.card = self.value, self.suit
     def __repr__(self):
         return self.value + "-" + self.suit
-    
+
 class poker_hand():
     def __init__(self, card_list):
         self.card_list = card_list
     def __repr__(self):
-        short_desc = "Nothing"
+        short_desc = "Nothing."
         value_dict = collections.defaultdict(int)
         suit_dict = collections.defaultdict(int)
         for my_card in self.card_list:
@@ -28,21 +29,21 @@ class poker_hand():
             suit_dict[my_card.suit] += 1
         # Pair
         if len(value_dict) == 4:
-            short_desc = "One pair"
-        # Two pairs or 3-of-a-kind
+            short_desc = "One pair."
+        # Two pair or 3-of-a-kind
         elif len(value_dict) == 3:
             if 3 in value_dict.values():
-                short_desc = "Three-of-a-kind"
+                short_desc ="Three-of-a-kind."
             else:
-                short_desc = "Two pairs"
+                short_desc ="Two pair."
         # Full house or 4-of-a-kind
         elif len(value_dict) == 2:
             if 2 in value_dict.values():
-                short_desc = "Full House"
+                short_desc ="Full house."
             else:
-                short_desc = "Four of a kind"
+                short_desc ="Four-of-a-kind."
         else:
-            #Flushes and straights
+            # Flushes and straights
             straight, flush = False, False
             if len(suit_dict) == 1:
                 flush = True
@@ -55,14 +56,14 @@ class poker_hand():
             if not set(value_dict.keys()).difference(low_straight):
                 straight = True
             if straight and not flush:
-                short_desc = "Straight"
+                short_desc ="Straight."
             elif flush and not straight:
-                short_desc = "Flush"
-            elif flush and straight:
-                short_desc = "Straight flush"
-            enumeration = "/".join([str(x) for x in self.card_list])
-            return "{enumeration} ({short_desc})".format(**locals())
-        
+                short_desc ="Flush."
+            elif flush and  straight:
+                short_desc ="Straight flush."
+        enumeration = "/".join([str(x) for x in self.card_list])
+        return "{enumeration} ({short_desc})".format(**locals())
+
 class deck(set):
     def __init__(self):
         for value, suit in itertools.product(CARD_VALUES, SUIT_VALUES):
@@ -73,9 +74,9 @@ class deck(set):
         return a_card
     def get_hand(self, number_of_cards=5):
         if number_of_cards == 5:
-            return poker_hand([self.get_card() for x in range (number_of_cards)])
+            return poker_hand([self.get_card() for x in range(number_of_cards)])
         else:
             raise NotImplementedError
-        
+
 for i in range(100000):
     print(deck().get_hand())
