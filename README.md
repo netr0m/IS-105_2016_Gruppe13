@@ -1,2 +1,2 @@
 # IS-105_2016_Gruppe13
-Feature branch for Nora
+Feature branch for Morten
