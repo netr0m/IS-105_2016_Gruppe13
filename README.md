@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # IS-105_2016_Gruppe13
 Repository for gruppe 13, UiA.
 
@@ -8,11 +9,16 @@ Hvis du ønsker å laste opp til develop-branch med cmd/git bash, MÅ du endre p
 git checkout develop
 ```
 
+Sjekk deretter at det står følgende i kommandovinduet:
+```sh
+is-105_2016_gruppe13 (develop)
+```
+
 Legg ønsket fil i lokal mappe og skriv følgende i cmd:
 ```sh
 - git add --all
 - git commit -m "Kommentar her"
-- git push origin develop
+- git push
 ```
 
 Hvis noen gjør endringer i develop-branchen må den lokale mappen på din PC synkroniseres på nytt. Skriv:
