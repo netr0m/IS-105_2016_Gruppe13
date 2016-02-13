@@ -57,9 +57,9 @@ B: 3 bits * 2 = 6
 A: 2 bits * 3 = 6
 Totalt: 29 bits
 
-110010011000000000001000010
-
-Kompringmeringsgraden er: 83,52 %
+Hvis A = 10, B = 11, C = 0:
+Blir det binære tallet: 110010011000000000001000010, som er 27 bits.
+Den opprinnelige meldingen var på 176 bits, og ved bruk av Huffman coding har vi oppnådd en komprimeringsgrad på 84,66 %
 
 For hvert tegn I LZW er det 8 bits. Mens i Huffman er det kun 1-2 bits per tegn. Komprimeringsgraden er derfor mer effektiv for den gitte teksten.
 
