@@ -52,11 +52,6 @@ B C C A C B C C C C C C C C C C C A C C C A
 
 **Huffman:**
 
-C: 1 bit * 17 = 17
-B: 3 bits * 2 = 6
-A: 2 bits * 3 = 6
-Totalt: 29 bits
-
 Hvis A = 10, B = 11, C = 0:
 Blir det binære tallet: 110010011000000000001000010, som er 27 bits.
 Den opprinnelige meldingen var på 176 bits, og ved bruk av Huffman coding har vi oppnådd en komprimeringsgrad på 84,66 %
