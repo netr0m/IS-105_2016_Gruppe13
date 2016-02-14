@@ -30,7 +30,7 @@ Format for tabell hentet fra: https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E
 ```sh
 b)
 ```
-Vi forstår ikke denne oppgaven, og har derfor ikke gjort den.
+**Se filen oppg_1.2.1b.py for koden**
 
 ```sh
 c)
