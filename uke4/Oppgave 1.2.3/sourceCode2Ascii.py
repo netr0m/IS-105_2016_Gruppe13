@@ -61,6 +61,6 @@ def test():
     directly in the module.
     '''
     
-    print decode('c:/users/morten/desktop/IS-105/is-105_2016_gruppe13/uke4/sourcecode/sourcecode.txt', 8, code())
+    print decode('c:/users/morten/desktop/IS-105/is-105_2016_gruppe13/uke4/oppgave 1.2.3/sourcecode.txt', 8, code())
 
 test()

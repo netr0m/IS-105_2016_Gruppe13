@@ -9,4 +9,4 @@ def deal(numhands, n=5, deck=[ranks+suits for ranks in ['2', '3', '4', '5', '6',
     return [deck[n*i:n*(i+1)] for i in range(numhands)]
 print "The dealer dealt these cards:\n"
 print deal(5)    # Use the parameter here to define how many players the dealer should deal to
-    
+
