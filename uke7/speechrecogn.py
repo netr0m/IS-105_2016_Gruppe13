@@ -5,7 +5,7 @@ import pyttsx
 engine = pyttsx.init()
 engine.setProperty('rate', 70)
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[10].id)
+engine.setProperty('voice', voices[1].id)
 
 r = sr.Recognizer()
 m = sr.Microphone()
