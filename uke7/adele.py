@@ -57,6 +57,7 @@ try:
                 print("You said {}".format(value))
         except sr.UnknownValueError:
             print("Oops! Didn't catch that")
+            engine.say("I didn't catch that.. Try again")
         except sr.RequestError as e:
             print("Uh oh! Couldn't request results from Google Speech Recognition service; {0}".format(e))
     
