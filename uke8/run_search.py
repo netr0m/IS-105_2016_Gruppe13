@@ -5,7 +5,7 @@ class SearchLetter(Search.Search):
         self.bazinga = bazinga                      # Looking for the word 'bazinga'
         self.fileName = filename                    # Which file we're looking in
         input_file = open(self.fileName, 'r')
-        self.prepare = input_file.read()
+        self.ready = input_file.read()
         input_file.close()
         pass
     
@@ -14,7 +14,7 @@ class SearchWord(Search.Search):
         self.bazinga = bazinga
         self.fileName = filename
         input_file = open(self.fileName, 'r')
-        self.prepare = input_file.read().split()
+        self.ready = input_file.read().split()
         input_file.close()
         pass
     

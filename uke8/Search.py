@@ -5,14 +5,14 @@ class Search:
         pass
     
     def search_fast(self):
-        for item in self.prepare:
+        for item in self.ready:
             if item == self.bazinga:
                 return True
             return False
     
     def search_slow(self):
         return_value = False
-        for item in self.prepare:
+        for item in self.ready:
             if item == self.bazinga:
                 return_value = True
         return return_value
@@ -23,7 +23,7 @@ class Search:
         time = benchmark.timeit(num)
         avg = float(time) / num                     # The average time to run through
         
-        print ("Search_fast took ", time, " seconds to run through " + str(num) + " number of times")
+        print ("Search_fast took ", time, " seconds to run through " + str(num) + " times")
         print ("The average time is " + str(avg))
         
         return avg
@@ -34,7 +34,7 @@ class Search:
         time = benchmark.timeit(num)
         avg = float(time) / num
         
-        print ("Search_slow took ", time, " seconds to run through " + str(num) + " number of times")
+        print ("Search_slow took ", time, " seconds to run through " + str(num) + " times")
         print ("The average time is " + str(avg))
         
         return avg
