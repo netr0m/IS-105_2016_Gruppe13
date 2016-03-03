@@ -48,5 +48,5 @@ Kun én input kan være True for at output blir True
 | 1 | 1 | 0 |
 
 ```sh
-a)
+b)
 ```
