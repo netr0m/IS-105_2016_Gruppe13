@@ -54,7 +54,7 @@ print ("Navn paa fakultet, antall studenter, sannsynlighet")
 # Pprint modul for å printe ut verdiene
 pprint.pprint(UiAStudents)
 
-print ("\nSom vi ser over, er det lavest sannsynlighet for at \nen gitt student tilhoerer fakultetet for " + KFTekst)
+print ("\nVi faar minst informasjon fra fakultetet for " + OoSTekst + ". Dette fordi det er " + OoSPoss + "% sannsynlighet \nfor at en student tilhoerer dette fakultetet.")
 
 
 # Lager lister med tall vi har fått tidligere for å opprette en graf
