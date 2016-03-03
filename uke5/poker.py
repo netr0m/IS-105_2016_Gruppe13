@@ -78,5 +78,5 @@ class deck(set):
         else:
             raise NotImplementedError
 
-for i in range(100000):
+for i in range(5):
     print(deck().get_hand())

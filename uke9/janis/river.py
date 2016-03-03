@@ -12,9 +12,9 @@ class River(sm.SM):
         # ...
         print "** Here is the state of the river-world: "
         
-        allAtLeft   = "** [chicken fox grain man ---\\ \_ _/ ___________ /---]"
+        allAtLeft       = "** [chicken fox grain man ---\\ \_ _/ ___________ /---]"
         onlyBoatAtRight = "** [chicken fox grain man ---\\ ___________\_ _/ /---]"
-        allAtLeftFinB = "** [chicken grain man ---\\ \_ fox _/ ___________ /---]"
+        allAtLeftFinB   = "** [chicken grain man ---\\ \_ fox _/ ___________ /---]"
     
     if self.river_db[0] == ['boat isat left']:
         print isAtLeft
