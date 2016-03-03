@@ -41,10 +41,15 @@ Gjennomsnittlengden for en melding blir derfor 250 bits for 100 studenter, alts�
 
 ##### Entropi:
 0.29*log2(1/0.29) = 0.5179038064476742
+
 0.21*log2(1/0.21) = 0.4728231410691526
+
 0.17*log2(1/0.17) = 0.4345868692491456
+
 0.15*log2(1/0.15) = 0.4105448391249309
+
 0.14*log2(1/0.14) = 0.3971101774803969
+
 0.04*log2(1/0.04) = 0.185754247590989
 
 Svaret her blir 242 bits, som blir delt på 100, altså 2.42 bits per student.
