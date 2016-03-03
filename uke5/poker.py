@@ -7,7 +7,7 @@ import itertools
 import random
 
 SUIT_VALUES = ("Hearts", "Spades", "Diamonds", "Clubs")
-CARD_VALUES = ("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace")
+RANK_VALUES = ("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace")
 
 class card:
     def __init__(self, value, suit):
@@ -15,13 +15,13 @@ class card:
         self.suit = suit
         self.card = self.value, self.suit
     def __repr__(self):
-        return self.value + "-" + self.suit
+        return self.value + " of " + self.suit
 
 class poker_hand():
     def __init__(self, card_list):
         self.card_list = card_list
     def __repr__(self):
-        short_desc = "Nothing."
+        short_desc = "Nothing"
         value_dict = collections.defaultdict(int)
         suit_dict = collections.defaultdict(int)
         for my_card in self.card_list:
@@ -29,26 +29,26 @@ class poker_hand():
             suit_dict[my_card.suit] += 1
         # Pair
         if len(value_dict) == 4:
-            short_desc = "One pair."
+            short_desc = "One Pair"
         # Two pair or 3-of-a-kind
         elif len(value_dict) == 3:
             if 3 in value_dict.values():
-                short_desc ="Three-of-a-kind."
+                short_desc ="Three-of-a-Kind"
             else:
-                short_desc ="Two pair."
+                short_desc ="Two Pair"
         # Full house or 4-of-a-kind
         elif len(value_dict) == 2:
             if 2 in value_dict.values():
-                short_desc ="Full house."
+                short_desc ="Full House"
             else:
-                short_desc ="Four-of-a-kind."
+                short_desc ="Four-of-a-Kind"
         else:
             # Flushes and straights
             straight, flush = False, False
             if len(suit_dict) == 1:
                 flush = True
-            min_value = min([CARD_VALUES.index(x) for x in value_dict.keys()])
-            max_value = max([CARD_VALUES.index(x) for x in value_dict.keys()])
+            min_value = min([RANK_VALUES.index(x) for x in value_dict.keys()])
+            max_value = max([RANK_VALUES.index(x) for x in value_dict.keys()])
             if int(max_value) - int(min_value) == 4:
                 straight = True
             # Ace can be low
@@ -56,17 +56,17 @@ class poker_hand():
             if not set(value_dict.keys()).difference(low_straight):
                 straight = True
             if straight and not flush:
-                short_desc ="Straight."
+                short_desc ="Straight"
             elif flush and not straight:
-                short_desc ="Flush."
+                short_desc ="Flush"
             elif flush and  straight:
-                short_desc ="Straight flush."
-        enumeration = "/".join([str(x) for x in self.card_list])
+                short_desc ="Straight Flush"
+        enumeration = " // ".join([str(x) for x in self.card_list])
         return "{enumeration} ({short_desc})".format(**locals())
 
 class deck(set):
     def __init__(self):
-        for value, suit in itertools.product(CARD_VALUES, SUIT_VALUES):
+        for value, suit in itertools.product(RANK_VALUES, SUIT_VALUES):
             self.add(card(value, suit))
     def get_card(self):
         a_card = random.sample(self, 1)[0]
