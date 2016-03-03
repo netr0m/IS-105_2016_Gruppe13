@@ -1,4 +1,4 @@
-## -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Pokerspill for gruppe 13, IS-105
 # Morten Amundsen, Nora Krogh, Erlend Sætre, Marius Fosseli, Joakim Kilen
 #!/usr/bin/env python3
