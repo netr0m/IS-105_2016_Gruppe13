@@ -62,7 +62,7 @@ def run(inFile, outFile):
         string = temporary['string']
         tab = temporary['tab']
         
-    # Run; as long as there is bytes in the file
+    # Run; as long as there are bytes in the file
     while (byte != ""):
         # Get a byte
         byte = f.read(1)
