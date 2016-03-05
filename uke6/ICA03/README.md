@@ -74,8 +74,10 @@ f)
 | hamlet.txt | 180 kb | output.txt | 181 kb | + 0.55%, altså 0.55% større |
 | complete_shakespeare.txt | 2080 kb | output1.txt | 2033 kb | 97.7%, altså 2,3% mindre |
 
-Encoding av inputfile tok veldig lang tid, spesielt shakespeare.txt, noe som sannsynligvis kommer av en feil i koden
-Hamlet ble større enn originalfilen, mens ved shakespeare sparte vi 2,3%.
+Encoding av inputfile tok veldig lang tid, spesielt shakespeare.txt, noe som sannsynligvis kommer av en feil i koden.
+
+Hamlet.txt ble større (+0.55%) enn originalfilen, mens filen complete_shakespeare.txt ble 2,3% mindre.
+
 Når vi prøvde å kjøre gjennom filen shakespeare.txt (5.33mb), brukte den lang tid og endte opp med feilmeldingen: "Fatal Python error: deallocating None. This application has requested the Runtime to terminate it in an unusual way.
 Please contact the application's support team for more information." hver gang. Vi klarte derfor ikke kjøre igjennom denne filen.
 Vi mistenker at dette har med størrelsen på filen å gjøre, ettersom den er ca. 3000 ganger større enn hamlet.txt
