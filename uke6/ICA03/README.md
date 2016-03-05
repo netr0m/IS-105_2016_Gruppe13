@@ -70,6 +70,7 @@ f)
 | Input | Opprinnelig størrelse | Output | Komprimert størrelse | Komprimeringsgrad |
 | --- | --- | --- | --- | --- |
 | hamlet.txt | 180 kb | output.txt | 181 kb | + 0.55%, altså 0.55% større |
-| shakespeare.txt | 5459 kb | output1.txt | ?? kb | % |
+| shakespeare.txt | 2080 kb | output1.txt | 2033 kb | 97.7%, altså 2,3% mindre |
 
-Encoding av inputfile tok veldig lang tid, noe som sannsynligvis kommer av en feil i koden
+Encoding av inputfile tok veldig lang tid, spesielt shakespeare.txt, noe som sannsynligvis kommer av en feil i koden
+Hamlet ble større enn originalfilen, mens ved shakespeare sparte vi 2,3%.
