@@ -62,14 +62,14 @@ For hvert tegn I LZW er det 8 bits. Mens i Huffman er det kun 1-2 bits per tegn.
 e)
 ```
 Se filen 1.2.1e.py for koden, og filene output.txt og output1.txt for resultat.
-Vi har kun fått til encoding, og ikke decoding.
+Vi har kun fÃ¥tt til encoding, og ikke decoding.
 
 ```sh
 f)
 ```
-| Input | Opprinnelig størrelse | Output | Komprimert størrelse | Komprimeringsgrad |
+| Input | Opprinnelig stÃ¸rrelse | Output | Komprimert stÃ¸rrelse | Komprimeringsgrad |
 | --- | --- | --- | --- | --- |
-| hamlet.txt | 180 kb | output.txt | 181 kb | + 0.55%, altså 0.55% større |
+| hamlet.txt | 180 kb | output.txt | 181 kb | + 0.55%, altsÃ¥ 0.55% stÃ¸rre |
 | shakespeare.txt | 5459 kb | output1.txt | ?? kb | % |
 
-Encoding av inputfile tok veldig lang tid, noe som sannsynligvis kommer av en feil/dårlig koding
+Encoding av inputfile tok veldig lang tid, noe som sannsynligvis kommer av en feil/dÃ¥rlig koding
