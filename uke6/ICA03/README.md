@@ -72,4 +72,4 @@ f)
 | hamlet.txt | 180 kb | output.txt | 181 kb | + 0.55%, altså 0.55% større |
 | shakespeare.txt | 5459 kb | output1.txt | ?? kb | % |
 
-Encoding av inputfile tok veldig lang tid, noe som sannsynligvis kommer av en feil/dårlig koding
+Encoding av inputfile tok veldig lang tid, noe som sannsynligvis kommer av en feil i koden
