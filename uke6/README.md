@@ -1,2 +1,2 @@
 # ICA 03 / UKE 6
-Se mappa "Oppgaver LZW" for våre svar
+Se mappa "ICA03" for våre svar
