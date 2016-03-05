@@ -26,7 +26,7 @@ def encode(string, byte, tab):
                 code4string.append(key)
                 
         # Sets a limit, defining where it should start over in the table
-        if (len(tab) >= 15095):
+        if (len(tab) >= 4095):
             tab = code()
         
         # Add string + symbol to the table (tab)
@@ -87,5 +87,5 @@ def run(inFile, outFile):
 # run('inFile.txt', 'output.txt') What file you want to encode, and the name of the file to be created
 # Change 'hamlet.txt' to 'shakespeare.txt' to encode complete_shakespeare.txt
 if __name__ == '__main__':
-    run('shakespeare.txt', 'output2.txt')
+    run('hamlet.txt', 'output.txt')
             
