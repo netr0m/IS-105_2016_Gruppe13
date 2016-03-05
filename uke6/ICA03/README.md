@@ -63,6 +63,8 @@ e)
 ```
 Se filen 1.2.1e.py for koden, og filene output.txt og output1.txt for resultat.
 Vi har kun fått til encoding, og ikke decoding.
+output.txt er den komprimerte versjonen av hamlet.txt
+output1.txt er den komprimerte versjonen av complete_shakespeare.txt
 
 ```sh
 f)
@@ -70,7 +72,7 @@ f)
 | Input | Opprinnelig størrelse | Output | Komprimert størrelse | Komprimeringsgrad |
 | --- | --- | --- | --- | --- |
 | hamlet.txt | 180 kb | output.txt | 181 kb | + 0.55%, altså 0.55% større |
-| shakespeare.txt | 2080 kb | output1.txt | 2033 kb | 97.7%, altså 2,3% mindre |
+| complete_shakespeare.txt | 2080 kb | output1.txt | 2033 kb | 97.7%, altså 2,3% mindre |
 
 Encoding av inputfile tok veldig lang tid, spesielt shakespeare.txt, noe som sannsynligvis kommer av en feil i koden
 Hamlet ble større enn originalfilen, mens ved shakespeare sparte vi 2,3%.
