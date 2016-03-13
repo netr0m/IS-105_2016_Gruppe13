@@ -4,7 +4,7 @@
 
 print """
 A man has to get across a river with a chicken, a fox, and a bag of grain.
-The boat can only take the man and one of the objects at the same time.
+The boat can only bring the man and one of the objects at the same time.
 If the man leaves the fox alone with the chicken, the fox will eat it.
 If the man leaves the chicken alone with the grain, the chicken will eat it.
 """
@@ -12,7 +12,7 @@ If the man leaves the chicken alone with the grain, the chicken will eat it.
 # Solution to the problem:
 #
 # The man has to transport the chicken over to the right side of the river, then come back alone.
-# He then has to take the grain, and transport it to the right side.
+# He then has to bring the grain, and transport it to the right side.
 # He must then transport the chicken back to the left side.
 # Now he must transport the fox over to the right side.
 # Finally, he must go back, pick up the chicken, and transport it to the right side.
@@ -23,11 +23,6 @@ If the man leaves the chicken alone with the grain, the chicken will eat it.
 
 man,chicken,grain,fox=("man","chicken","grain","fox")
 objects=(chicken,grain,fox,None)
-allIsLeft=(chicken,grain,fox)
-chickenRight=(grain,fox)
-grainRight=(fox)
-foxLeft=(fox)
-
 
 # Define that chicken + grain alone, or fox + chicken alone results in game over.
 gameover=(set((chicken,grain)), set((fox,chicken)))
@@ -61,21 +56,21 @@ def boat(cfg,item):
     if item and not item in src:
         return None
     # Transport the man and possibly an item
-    desc="\[ %s ---\\ \_ man " % (objects,) if man in left else "The man goes <--"
+    desc="--> Going right [---\ \_ man " if man in left else "<-- Going left [---\ ________________ \_ man "
     src.remove(man)
     dst.add(man)
     if item:
         src.remove(item)
         dst.add(item)
-        desc+= item + " _/ _________/---]"
+        desc+= "+ " +item + " _/ ________________ /---]"
     else:
-        desc+=" alone"
+        desc+="_/ /---]"
     return ((left,right),desc) # return the resulting configuration
 
 # pretty-print a configuration
 def printcfg(cfg,level=0):
     left,right=cfg[0]
-    verdict="Game Over!" if lost(cfg) else "(Ok)"
+    verdict="Game Over!" if lost(cfg) else "(Safe!)"
     print "    "*level,", ".join(left),"  ~~~  ",", ".join(right),cfg[1],verdict
 
 # given a certain configuration, generate the configurations that could result from it
@@ -111,10 +106,22 @@ previouscfgs=[cfg[0]]
 solutionstack=[]
 
 # go!
-print "Trace of the recursive solution-finding process:"
+print "Check what solutions are safe:"
 generate(cfg)
 
 print "\nThe solution:"
 for step in solutionstack:
     if step:
-        print "  ",step
+        print "\n",step
+        
+print """
+[chicken + grain + fox + man ---\ \_ _/ ________________ /---]
+1. The man brings the chicken to the right side.
+2. The man goes back.
+3. The man brings the grain to the right side.
+4. The man picks up the chicken and brings it back to the left side.
+5. The man picks up the fox, and brings it to the right side.
+6. The man goes back to the left side.
+7. The man brings the chicken to the right side.
+[---\ ________________ \_ _/ /--- man + chicken + fox + grain]
+"""
