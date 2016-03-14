@@ -56,13 +56,13 @@ def boat(cfg,item):
     if item and not item in src:
         return None
     # Transport the man and possibly an item
-    desc="--> Going right [---\ \_ man " if man in left else "<-- Going left [---\ ________________ \_ man "
+    desc="--> Going right [---\ \_ man " if man in left else "<-- Going left [---\ ~~~~~~~~~~~~~~~~ \_ man "
     src.remove(man)
     dst.add(man)
     if item:
         src.remove(item)
         dst.add(item)
-        desc+= "+ " +item + " _/ ________________ /---]"
+        desc+= "+ " +item + " _/ ~~~~~~~~~~~~~~~~ /---]"
     else:
         desc+="_/ /---]"
     return ((left,right),desc) # return the resulting configuration
@@ -109,13 +109,13 @@ solutionstack=[]
 print "Check what solutions are safe:"
 generate(cfg)
 
-print "\nThe solution:"
+print "\nThe solution - Step by Step:"
 for step in solutionstack:
     if step:
         print "\n",step
         
 print """
-[chicken + grain + fox + man ---\ \_ _/ ________________ /---]
+[chicken + grain + fox + man ---\ \_ _/ ~~~~~~~~~~~~~~~~ /---]
 1. The man brings the chicken to the right side.
 2. The man goes back.
 3. The man brings the grain to the right side.
@@ -123,5 +123,5 @@ print """
 5. The man picks up the fox, and brings it to the right side.
 6. The man goes back to the left side.
 7. The man brings the chicken to the right side.
-[---\ ________________ \_ _/ /--- man + chicken + fox + grain]
+[---\ ~~~~~~~~~~~~~~~~ \_ _/ /--- man + chicken + fox + grain]
 """
