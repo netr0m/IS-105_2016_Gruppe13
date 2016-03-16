@@ -1,3 +1,3 @@
-Hi. This text is written for testing purposes only. This file is not so cool.
+Hi. This text is written for gnitset purposes only. This file is not so cool.
 The contents of this file will be copied into a new file, but in the new file,
 the word "testing" will be reversed, with the resulting word "gnitset".

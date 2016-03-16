@@ -1,14 +1,28 @@
 # -*- coding: utf-8 -*-
 # ICA07 / Uke 10
 # Gruppe 13: Morten Amundsen, Nora Krogh, Marius Fosseli, Erlend Sætre, Joakim Kilen
+"""
+Kilder:
+http://www.tutorialspoint.com/python/os_remove.htm
+https://pymotw.com/2/mmap/
+https://docs.python.org/2/library/mmap.html
+"""
 
 # Filesystem
 # Import the Memory-map module etc.
 import mmap
 import shutil
 import contextlib
+import os
 
-userchoice = raw_input("Select one of the options below:\n 1. Create file\n2. Read file\n3. Copy file\n4.Search and replace in file\n")
+userchoice = raw_input("""Select one of the options below:
+1. Create file
+2. Read file
+3. Copy file
+4.Search and replace in file
+5. Rename a file
+6. Delete a file\n
+""")
 
 if userchoice == "1":
     """
@@ -107,3 +121,15 @@ elif userchoice == "4":
             f.seek(0)
             # Prints the content of the file on the disk after reversing the word
             print 'File After   :', f.readline().rstrip()
+            
+elif userchoice == "5":
+    # Define a file to rename
+    aFile = raw_input("Select a file, e.g. 'test.txt': ")
+
+    # Rename the specified file, "renamed.txt" is the new name
+    os.rename(aFile, "renamed.txt")
+    
+else:
+    # Use the OS module to delete a specific file
+    # Deletes the file "deleteme.txt"
+    os.remove("deleteme.txt")
