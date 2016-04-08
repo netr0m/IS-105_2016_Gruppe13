@@ -14,6 +14,7 @@ import mmap
 import shutil
 import contextlib
 import os
+import sys
 
 userchoice = raw_input("""Select one of the options below:
 1. Create file
@@ -21,7 +22,8 @@ userchoice = raw_input("""Select one of the options below:
 3. Copy file
 4.Search and replace in file
 5. Rename a file
-6. Delete a file\n
+6. Delete a file
+7. Exit the program\n
 """)
 
 if userchoice == "1":
@@ -129,7 +131,16 @@ elif userchoice == "5":
     # Rename the specified file, "renamed.txt" is the new name
     os.rename(aFile, "renamed.txt")
     
-else:
+elif userchoice == "6":
     # Use the OS module to delete a specific file
     # Deletes the file "deleteme.txt"
     os.remove("deleteme.txt")
+    
+elif userchoice == "7":
+    print "You chose to quit. Thanks for using this program!"
+    sys.exit(0)
+    
+else:
+    print "You entered an invalid number:", userchoice
+    print "The program will now exit"
+    sys.exit(0)
