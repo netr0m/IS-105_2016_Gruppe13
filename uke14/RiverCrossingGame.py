@@ -17,7 +17,7 @@ sky = (199,237,243)
 
 
 gameDisplay = pygame.display.set_mode((displayx,displayy))
-pygame.display.set_caption('River Crossing Problem')
+pygame.display.set_caption('The River Crossing Game')
 clock = pygame.time.Clock()
 
 # Define file used for "dock"
