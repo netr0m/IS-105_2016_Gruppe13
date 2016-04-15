@@ -43,6 +43,13 @@ while 1:
     # If data == an object going into the boat
     if data == "chickenIn":
         data = "chicken"
+        """
+        Kan muligens skrive en kode her, som gjør at server "vet" hvilken tilstand verden har
+        F.eks.:
+        if data == "chickenIn":
+            data = "chicken"
+            boatContent = "man - chicken"
+        """
         # The reply that the user will receive after sending a request/package 
         reply = "You put the " + data + " in the boat.\n"
         
