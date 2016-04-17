@@ -42,15 +42,15 @@ while 1:
     
     # Set the initial state of the world
     # "left", "boatLeft", "boatRight", "right":
-    boat = "left"
-    chicken = "left"
-    grain = "left"
-    fox = "left"
+    boatIsAt = "left"
+    chickenIsAt = "left"
+    grainIsAt = "left"
+    foxIsAt = "left"
     
-    # If data == an object going into the boat
-    if data == "chickenIn" and chicken == "left":
+    # If data == "chickenIn", AND chicken is on the dock on the left side:
+    if data == "chickenIn" and chickenIsAt == "left":
         data = "chicken"
-        chicken = "boatLeft"
+        chickenIsAt = "boatLeft"
         
         # The reply that the user will receive after sending a request/package 
         reply = "You put the " + data + " in the boat.\n" + "The " + data + " is in the boat on the left side\n"
@@ -59,79 +59,162 @@ while 1:
         s.sendto(reply, addr)
         # Print what object the client selected, and from which IP
         print 'Object put in boat (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
-        
-    elif data == "chickenIn" and chicken == "right":
+    
+    # If data == "chickenIn", AND chicken is on the dock on the right side:    
+    elif data == "chickenIn" and chickenIsAt == "right":
         data = "chicken"
-        chicken = "boatLeft"
+        chickenIsAt = "boatRight"
         
         # The reply that the user will receive after sending a request/package 
-        reply = "You put the " + data + " in the boat.\n" + "The " + data + " is in the boat on the left side\n"
+        reply = "You put the " + data + " in the boat.\n" + "The " + data + " is in the boat on the right side\n"
         
         # Send the reply to the client    
         s.sendto(reply, addr)
         # Print what object the client selected, and from which IP
         print 'Object put in boat (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
-        
-    elif data == "grainIn":
+    
+    # If data == "grainIn", AND grain is on the dock on the left side:    
+    elif data == "grainIn" and grainIsAt == "left":
         data = "grain"
+        grainIsAt = "boatLeft"
+        
         # The reply that the user will receive after sending a request/package 
-        reply = "You put the " + data + " in the boat.\n"
+        reply = "You put the " + data + " in the boat.\n" + "The " + data + " is in the boat on the left side\n"
             
         # Send the reply to the client    
         s.sendto(reply, addr)
         # Print what object the client selected, and from which IP
-        print 'Object put in boat (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip() 
+        print 'Object put in boat (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
+    
+    # If data == "grainIn", AND grain is on the dock on the right side:    
+    elif data == "grainIn" and grainIsAt == "right":
+        data = "grain"
+        grainIsAt = "boatRight"
         
-    elif data == "foxIn":
-        data = "fox"
         # The reply that the user will receive after sending a request/package 
-        reply = "You put the " + data + " in the boat.\n"
+        reply = "You put the " + data + " in the boat.\n" + "The " + data + " is in the boat on the right side\n"
+        
+        # Send the reply to the client    
+        s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
+        print 'Object put in boat (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()    
+
+    # If data == "foxIn", AND fox is on the dock on the left side:    
+    elif data == "foxIn" and foxIsAt == "left":
+        data = "fox"
+        foxIsAt = "boatLeft"
+        
+        # The reply that the user will receive after sending a request/package 
+        reply = "You put the " + data + " in the boat.\n" + "The " + data + " is in the boat on the left side\n"
+    
+        # Send the reply to the client    
+        s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
+        print 'Object put in boat (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
+
+    # If data == "foxIn", AND fox is on the dock on the right side:        
+    elif data == "foxIn" and foxIsAt == "right":
+        data = "fox"
+        foxIsAt = "boatRight"
+        
+        # The reply that the user will receive after sending a request/package 
+        reply = "You put the " + data + " in the boat.\n" + "The " + data + " is in the boat on the right side\n"
     
         # Send the reply to the client    
         s.sendto(reply, addr)
         # Print what object the client selected, and from which IP
         print 'Object put in boat (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
     
-    elif data == "chickenOut":
+    # If data == "chickenOut", AND chicken is in the boat on the left side:    
+    elif data == "chickenOut" and chickenIsAt == "boatLeft":
         data = "chicken"
+        chickenIsAt = "left"
+        
         # The reply that the user will receive after sending a request/package 
-        reply = "You put the " + data + " on the dock.\n"
+        reply = "You put the " + data + " on the dock.\n" + "The " + data + " is on the left dock\n"
             
         # Send the reply to the client    
         s.sendto(reply, addr)
         # Print what object the client selected, and from which IP
         print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()  
+    
+    # If data == "chickenOut", AND chicken is in the boat on the right side:    
+    elif data == "chickenOut" and chickenIsAt == "boatRight":
+        data = "chicken"
+        chickenIsAt = "right"
         
-    elif data == "grainOut":
-        data = "grain"
         # The reply that the user will receive after sending a request/package 
-        reply = "You put the " + data + " on the dock.\n"
+        reply = "You put the " + data + " on the dock.\n" + "The " + data + " is on the right dock\n"
             
         # Send the reply to the client    
         s.sendto(reply, addr)
         # Print what object the client selected, and from which IP
-        print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()      
+        print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
         
-    elif data == "foxOut":
-        data = "fox"
+    elif data == "grainOut" and grainIsAt == "boatLeft":
+        data = "grain"
+        grainIsAt = "left"
+        
         # The reply that the user will receive after sending a request/package 
-        reply = "You put the " + data + " on the dock.\n"
+        reply = "You put the " + data + " on the dock.\n" + "The " + data + " is on the left dock\n"
+            
+        # Send the reply to the client    
+        s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
+        print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
+        
+    elif data == "grainOut" and grainIsAt == "boatRight":
+        data = "grain"
+        grainIsAt = "right"
+        
+        # The reply that the user will receive after sending a request/package 
+        reply = "You put the " + data + " on the dock.\n" + "The " + data + " is on the right dock\n"
+            
+        # Send the reply to the client    
+        s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
+        print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()    
+        
+    elif data == "foxOut" and foxIsAt == "boatLeft":
+        data = "fox"
+        foxIsAt = "left"
+        
+        # The reply that the user will receive after sending a request/package 
+        reply = "You put the " + data + " on the dock.\n" + "The " + data + " is on the left dock\n"
             
         # Send the reply to the client    
         s.sendto(reply, addr)
         # Print what object the client selected, and from which IP
         print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()     
+    
+    elif data == "foxOut" and foxIsAt == "boatRight":
+        data = "fox"
+        foxIsAt = "right"
         
-    elif data == "row":
         # The reply that the user will receive after sending a request/package 
-        reply = "You have rowed to the other side of the river\n"
+        reply = "You put the " + data + " on the dock.\n" + "The " + data + " is on the right dock\n"
             
         # Send the reply to the client    
         s.sendto(reply, addr)
         # Print what object the client selected, and from which IP
-        print 'Action performed (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
+        print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()    
         
     elif data == "row":
+        if boatIsAt == "left":
+            boatIsAt = "right"
+            # The reply that the user will receive after sending a request/package 
+            reply = "You have rowed to the " + boatIsAt + " side of the river\n" + "The boat is on the " + boatIsAt + " side of the river\n"
+        elif boatIsAt == "right":
+            boatIsAt = "left"
+            # The reply that the user will receive after sending a request/package
+            reply = "You have rowed to the " + boatIsAt + " side of the river\n" + "The boat is on the " + boatIsAt + " side of the river\n"
+            
+        # Send the reply to the client    
+        s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
+        print 'Action performed (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()  
+        
+    elif data == "state" and boatIsAt == "left" and chicken == "left":
         # The reply that the user will receive after sending a request/package 
         reply = "Current state of the River Crossing World:\n" + " hello\n"
         # Send the reply to the client    
