@@ -20,23 +20,20 @@ host = 'localhost';
 port = 5000;
  
 while(1) :
-    userchoice = int(raw_input("""Select one of the following options to begin:
-    1. Put an object in the boat
-    2. Put an object on the dock
-    3. Row to the other side
-    4. See current state of the world\n"""))
+    userchoice = raw_input("""Select one of the following options to begin:
+    R. Row to the other side
+    Q. Put the chicken in the boat
+    W. Put the chicken on the dock
+    A. Put the grain in the boat
+    S. Put the grain on the dock
+    Z. Put the fox in the boat
+    X. Put the fox on the dock
+    E. See current state of the world\n
+    """)
+    userchoice = userchoice.upper()
     
-    if userchoice == 1:
-        objct = raw_input("Type to select either 'Chicken', 'Grain', or 'Fox' to put in the boat: ")
-        objct = objct.lower()
-        if objct == "chicken":
-            objct = "chickenIn"
-        elif objct == "grain":
-            objct = "grainIn"
-        elif objct == "fox":
-            objct = "foxIn"
-        else:
-            print "There is no such object"
+    if userchoice == "Q":
+        objct = "Q"
         try :
             # Send the whole string
             s.sendto(objct, (host, port))
@@ -49,25 +46,15 @@ while(1) :
             addr = d[1]
         
             # Prints the servers reply 
-            print "Server reply: " + reply
+            print "Server reply:\n" + reply
     
         # If an error occurs; 
         except socket.error, objct:
             print "An error has occured: Error Code : " + str(objct[0]) + " Message " + objct[1]
             sys.exit()
     
-    elif userchoice == 2:
-        objct = raw_input("Type to select either 'Chicken', 'Grain', or 'Fox' to put on the dock: ")
-        objct = objct.lower()
-        if objct == "chicken":
-            objct = "chickenOut"
-        elif objct == "grain":
-            objct = "grainOut"
-        elif objct == "fox":
-            objct = "foxOut"
-        else:
-            print "There is no such object"
-
+    elif userchoice == "W":
+        objct = "W"
         try :
             # Send the whole string
             s.sendto(objct, (host, port))
@@ -87,8 +74,8 @@ while(1) :
             print "An error has occured: Error Code : " + str(objct[0]) + " Message " + objct[1]
             sys.exit()    
     
-    elif userchoice == 3:
-        objct = "row"
+    elif userchoice == "A":
+        objct = "A"
         try :
             # Send the whole string
             s.sendto(objct, (host, port))
@@ -108,8 +95,8 @@ while(1) :
             print "An error has occured: Error Code : " + str(objct[0]) + " Message " + objct[1]
             sys.exit()
             
-    elif userchoice == 4:
-        objct = "state"
+    elif userchoice == "S":
+        objct = "S"
         try:
             # Send the whole string
             s.sendto(objct, (host, port))
@@ -126,6 +113,82 @@ while(1) :
         # If an error occurs;
         except socket.error, objct:
             print "An error has occured: Error Code: " + str(objct[0]) + " Message " + objct[1]
+            
+    elif userchoice == "Z":
+        objct = "Z"
+        try:
+            # Send the whole string
+            s.sendto(objct, (host, port))
+            
+            # Receive data from the server
+            d = s.recvfrom(1024)
+            # The reply that the server sent
+            reply = d[0]
+            # The address
+            addr = d[1]
+            
+            # Prints the servers reply
+            print "Server reply: " + reply
+        # If an error occurs;
+        except socket.error, objct:
+            print "An error has occured: Error Code: " + str(objct[0]) + " Message " + objct[1]
+            
+    elif userchoice == "X":
+        objct = "X"
+        try:
+            # Send the whole string
+            s.sendto(objct, (host, port))
+            
+            # Receive data from the server
+            d = s.recvfrom(1024)
+            # The reply that the server sent
+            reply = d[0]
+            # The address
+            addr = d[1]
+            
+            # Prints the servers reply
+            print "Server reply: " + reply
+        # If an error occurs;
+        except socket.error, objct:
+            print "An error has occured: Error Code: " + str(objct[0]) + " Message " + objct[1]
+            
+    elif userchoice == "E":
+        objct = "E"
+        try:
+            # Send the whole string
+            s.sendto(objct, (host, port))
+            
+            # Receive data from the server
+            d = s.recvfrom(1024)
+            # The reply that the server sent
+            reply = d[0]
+            # The address
+            addr = d[1]
+            
+            # Prints the servers reply
+            print "Server reply: " + reply
+        # If an error occurs;
+        except socket.error, objct:
+            print "An error has occured: Error Code: " + str(objct[0]) + " Message " + objct[1]
+            
+    elif userchoice == "R":
+        objct = "R"
+        try:
+            # Send the whole string
+            s.sendto(objct, (host, port))
+            
+            # Receive data from the server
+            d = s.recvfrom(1024)
+            # The reply that the server sent
+            reply = d[0]
+            # The address
+            addr = d[1]
+            
+            # Prints the servers reply
+            print "Server reply: " + reply
+        # If an error occurs;
+        except socket.error, objct:
+            print "An error has occured: Error Code: " + str(objct[0]) + " Message " + objct[1]    
         
     else:
         print "Invalid choice."
