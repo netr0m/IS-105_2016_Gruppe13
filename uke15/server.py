@@ -40,21 +40,36 @@ while 1:
     if not data: 
         break
     
+    # Set the initial state of the world
+    # "left", "boatLeft", "boatRight", "right":
+    boat = "left"
+    chicken = "left"
+    grain = "left"
+    fox = "left"
+    
     # If data == an object going into the boat
-    if data == "chickenIn":
+    if data == "chickenIn" and chicken == "left":
         data = "chicken"
-        """
-        Kan muligens skrive en kode her, som gjør at server "vet" hvilken tilstand verden har
-        F.eks.:
-        if data == "chickenIn":
-            data = "chicken"
-            boatContent = "man - chicken"
-        """
-        # The reply that the user will receive after sending a request/package 
-        reply = "You put the " + data + " in the boat.\n"
+        chicken = "boatLeft"
         
-        # Print what object the client selected, and from which IP 
+        # The reply that the user will receive after sending a request/package 
+        reply = "You put the " + data + " in the boat.\n" + "The " + data + " is in the boat on the left side\n"
+        
+        # Send the reply to the client    
         s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
+        print 'Object put in boat (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
+        
+    elif data == "chickenIn" and chicken == "right":
+        data = "chicken"
+        chicken = "boatLeft"
+        
+        # The reply that the user will receive after sending a request/package 
+        reply = "You put the " + data + " in the boat.\n" + "The " + data + " is in the boat on the left side\n"
+        
+        # Send the reply to the client    
+        s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
         print 'Object put in boat (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
         
     elif data == "grainIn":
@@ -62,8 +77,9 @@ while 1:
         # The reply that the user will receive after sending a request/package 
         reply = "You put the " + data + " in the boat.\n"
             
-        # Print what object the client selected, and from which IP 
+        # Send the reply to the client    
         s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
         print 'Object put in boat (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip() 
         
     elif data == "foxIn":
@@ -71,8 +87,9 @@ while 1:
         # The reply that the user will receive after sending a request/package 
         reply = "You put the " + data + " in the boat.\n"
     
-        # Print what object the client selected, and from which IP 
+        # Send the reply to the client    
         s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
         print 'Object put in boat (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
     
     elif data == "chickenOut":
@@ -80,8 +97,9 @@ while 1:
         # The reply that the user will receive after sending a request/package 
         reply = "You put the " + data + " on the dock.\n"
             
-        # Print what object the client selected, and from which IP 
+        # Send the reply to the client    
         s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
         print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()  
         
     elif data == "grainOut":
@@ -89,8 +107,9 @@ while 1:
         # The reply that the user will receive after sending a request/package 
         reply = "You put the " + data + " on the dock.\n"
             
-        # Print what object the client selected, and from which IP 
+        # Send the reply to the client    
         s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
         print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()      
         
     elif data == "foxOut":
@@ -98,16 +117,26 @@ while 1:
         # The reply that the user will receive after sending a request/package 
         reply = "You put the " + data + " on the dock.\n"
             
-        # Print what object the client selected, and from which IP 
+        # Send the reply to the client    
         s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
         print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()     
         
     elif data == "row":
         # The reply that the user will receive after sending a request/package 
         reply = "You have rowed to the other side of the river\n"
             
-        # Print what object the client selected, and from which IP 
+        # Send the reply to the client    
         s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP
         print 'Action performed (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()
+        
+    elif data == "row":
+        # The reply that the user will receive after sending a request/package 
+        reply = "Current state of the River Crossing World:\n" + " hello\n"
+        # Send the reply to the client    
+        s.sendto(reply, addr)
+        # Print what object the client selected, and from which IP         
+        print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip()    
 s.close()        
         

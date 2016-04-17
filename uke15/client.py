@@ -11,7 +11,7 @@ try:
 # If an error occurs while attempting to create;
 except socket.error:
     # Print an error message
-    print 'An error has occured: Failed to create socket'
+    print "An error has occured: Failed to create socket"
     sys.exit()
 
 # Set server "IP"/host 
@@ -23,7 +23,8 @@ while(1) :
     userchoice = int(raw_input("""Select one of the following options to begin:
     1. Put an object in the boat
     2. Put an object on the dock
-    3. Row to the other side\n"""))
+    3. Row to the other side
+    4. See current state of the world\n"""))
     
     if userchoice == 1:
         objct = raw_input("Type to select either 'Chicken', 'Grain', or 'Fox' to put in the boat: ")
@@ -37,7 +38,7 @@ while(1) :
         else:
             print "There is no such object"
         try :
-            #Send the whole string
+            # Send the whole string
             s.sendto(objct, (host, port))
             
             # Receive data from the server
@@ -48,11 +49,11 @@ while(1) :
             addr = d[1]
         
             # Prints the servers reply 
-            print 'Server reply: ' + reply
+            print "Server reply: " + reply
     
         # If an error occurs; 
         except socket.error, objct:
-            print 'An error has occured: Error Code : ' + str(objct[0]) + ' Message ' + objct[1]
+            print "An error has occured: Error Code : " + str(objct[0]) + " Message " + objct[1]
             sys.exit()
     
     elif userchoice == 2:
@@ -79,17 +80,17 @@ while(1) :
             addr = d[1]
             
             # Prints the servers reply 
-            print 'Server reply: ' + reply
+            print "Server reply: " + reply
         
         # If an error occurs; 
         except socket.error, objct:
-            print 'An error has occured: Error Code : ' + str(objct[0]) + ' Message ' + objct[1]
+            print "An error has occured: Error Code : " + str(objct[0]) + " Message " + objct[1]
             sys.exit()    
     
     elif userchoice == 3:
         objct = "row"
         try :
-            #Send the whole string
+            # Send the whole string
             s.sendto(objct, (host, port))
              
             # Receive data from the server
@@ -100,11 +101,31 @@ while(1) :
             addr = d[1]
             
             # Prints the servers reply 
-            print 'Server reply: ' + reply
+            print "Server reply: " + reply
         
         # If an error occurs; 
-        except socket.error, row:
-            print 'An error has occured: Error Code : ' + str(row[0]) + ' Message ' + row[1]
-            sys.exit()        
+        except socket.error, objct:
+            print "An error has occured: Error Code : " + str(objct[0]) + " Message " + objct[1]
+            sys.exit()
+            
+    elif userchoice == 4:
+        objct = "state"
+        try:
+            # Send the whole string
+            s.sendto(objct, (host, port))
+            
+            # Receive data from the server
+            d = s.recvfrom(1024)
+            # The reply that the server sent
+            reply = d[0]
+            # The address
+            addr = d[1]
+            
+            # Prints the servers reply
+            print "Server reply: " + reply
+        # If an error occurs;
+        except socket.error, objct:
+            print "An error has occured: Error Code: " + str(objct[0]) + " Message " + objct[1]
+        
     else:
         print "Invalid choice."
