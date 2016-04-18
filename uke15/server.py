@@ -215,14 +215,33 @@ while 1:
             # Print what object the client selected, and from which IP
             print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip() + ", " + foxIsAt
 
-    # If data == "R" (Row to the other side):        
+    # If data == "R" (Row to the other side):
     elif data == "R":
         # If boat is on the left side:
         if boatIsAt == "left":
             data = "Row"
             boatIsAt = "right"
+            
+            # If the chicken is alone with the grain:
+            if chickenIsAt == "left" and grainIsAt == "left" and foxIsAt != "left":
+                reply = "You lost the game..\nThe chicken ate the grain.\nRestarting the game.\n"
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what object the client selected, and from which IP
+                print 'Game over.. Chicken ate the grain (from [' + addr[0] + ':' + str(addr[1]) + '])'
+                execfile("server.py")
+            
+            # If the fox is alone with the chicken:    
+            elif chickenIsAt == "left" and foxIsAt == "left":
+                reply = "You lost the game..\nThe fox ate the chicken.\nRestarting the game.\n"
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what object the client selected, and from which IP
+                print 'Game over.. Fox ate the chicken (from [' + addr[0] + ':' + str(addr[1]) + '])'
+                execfile("server.py")
+            
             # If chicken is in the boat, on the left side:
-            if chickenIsAt == "boatLeft":
+            elif chickenIsAt == "boatLeft":
                 # Move to the right side
                 chickenIsAt = "boatRight"
                 # Print that the chicken has moved
@@ -249,11 +268,11 @@ while 1:
             else:
                 inBoat = "empty"
                 if inBoat == "empty":
-                    reply = "You lost the game..\n Restarting the game.\n"
+                    reply = "You lost the game.. The fox ate the chicken.\n Restarting the game.\n"
                     # Send the reply to the client    
                     s.sendto(reply, addr)
                     # Print what object the client selected, and from which IP
-                    print 'Game over.. (from [' + addr[0] + ':' + str(addr[1]) + '])'
+                    print 'Game over.. Fox ate the chicken(from [' + addr[0] + ':' + str(addr[1]) + '])'
                     execfile("server.py")
 
             # The reply that the user will receive after sending a request/package
@@ -268,8 +287,27 @@ while 1:
         elif boatIsAt == "right":
             data = "Row"
             boatIsAt = "left"
+            
+            # If the chicken is alone with the grain:    
+            if chickenIsAt == "right" and grainIsAt == "right" and foxIsAt != "right":
+                reply = "You lost the game..\nThe chicken ate the grain.\nRestarting the game.\n"
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what object the client selected, and from which IP
+                print 'Game over.. Chicken ate the grain (from [' + addr[0] + ':' + str(addr[1]) + '])'
+                execfile("server.py")
+            
+            # If the fox is alone with the chicken:    
+            elif chickenIsAt == "right" and foxIsAt == "right":
+                reply = "You lost the game..\nThe fox ate the chicken.\nRestarting the game.\n"
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what object the client selected, and from which IP
+                print 'Game over.. Fox ate the chicken (from [' + addr[0] + ':' + str(addr[1]) + '])'
+                execfile("server.py")
+
             # If chicken is in the boat, on the left side:
-            if chickenIsAt == "boatRight":
+            elif chickenIsAt == "boatRight":
                 # Move to the left side
                 chickenIsAt = "boatLeft"
                 # Print that the chicken has moved
@@ -294,12 +332,18 @@ while 1:
                 inBoat = "fox"          
 
             # The reply that the user will receive after sending a request/package 
-            reply = "You have rowed to the " + boatIsAt + " side of the river with the " + inBoat + "\n" + "The boat is on the " + boatIsAt + " side of the river\n"
+            if chickenIsAt == "boatLeft" or chickenIsAt == "boatRight" or grainIsAt == "boatLeft" or grainIsAt == "boatRight" or foxIsAt == "boatLeft" or foxIsAt == "boatLeft":
+                reply = "You have rowed to the " + boatIsAt + " side of the river with the " + inBoat + "\n" + "The boat is on the " + boatIsAt + " side of the river\n"
+            else:
+                reply = "You have rowed to the " + boatIsAt + " side of the river.\n" + "The boat is on the " + boatIsAt + " side of the river\n"
 
             # Send the reply to the client    
             s.sendto(reply, addr)
             # Print what object the client selected, and from which IP
-            print 'Action performed (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip() + " " + boatIsAt + " with " + inBoat
+            if chickenIsAt == "boatLeft" or chickenIsAt == "boatRight" or grainIsAt == "boatLeft" or grainIsAt == "boatRight" or foxIsAt == "boatLeft" or foxIsAt == "boatLeft":
+                print 'Action performed (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip() + " " + boatIsAt + " with " + inBoat
+            else:
+                print 'Action performed (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip() + " " + boatIsAt
 
     # If data == "E", show the current state of the world:    
     elif data == "E":
@@ -334,7 +378,7 @@ while 1:
                 # Print what action the client performed, and from which IP         
                 print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
                 
-            elif chickenIsAt == "right" and grainIsAt == "leftBoat" and foxIsAt == "left":
+            elif chickenIsAt == "right" and grainIsAt == "boatLeft" and foxIsAt == "left":
                 # The reply that the user will receive after sending a request/package 
                 reply = """\nCurrent state of the River Crossing World:
                 [ fox \ \_ man + grain _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / chicken ]\n"""
@@ -344,7 +388,7 @@ while 1:
                 # Print what action the client performed, and from which IP         
                 print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
                 
-            elif chickenIsAt == "right" and grainIsAt == "left" and foxIsAt == "leftBoat":
+            elif chickenIsAt == "right" and grainIsAt == "left" and foxIsAt == "boatLeft":
                 # The reply that the user will receive after sending a request/package 
                 reply = """\nCurrent state of the River Crossing World:
                 [ grain \ \_ man + fox _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / chicken ]\n"""
@@ -374,7 +418,7 @@ while 1:
                 # Print what action the client performed, and from which IP         
                 print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
                 
-            elif grainIsAt == "right" and chickenIsAt == "leftBoat" and foxIsAt == "left":
+            elif grainIsAt == "right" and chickenIsAt == "boatLeft" and foxIsAt == "left":
                 # The reply that the user will receive after sending a request/package 
                 reply = """\nCurrent state of the River Crossing World:
                 [ fox \ \_ man + chicken _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / grain ]\n"""
@@ -384,7 +428,7 @@ while 1:
                 # Print what action the client performed, and from which IP         
                 print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
                 
-            elif grainIsAt == "right" and chickenIsAt == "left" and foxIsAt == "leftBoat":
+            elif grainIsAt == "right" and chickenIsAt == "left" and foxIsAt == "boatLeft":
                 # The reply that the user will receive after sending a request/package 
                 reply = """\nCurrent state of the River Crossing World:
                 [ chicken \ \_ man + fox _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / grain ]\n"""
@@ -414,7 +458,7 @@ while 1:
                 # Print what action the client performed, and from which IP         
                 print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
                 
-            elif foxIsAt == "right" and chickenIsAt == "leftBoat" and grainIsAt == "left":
+            elif foxIsAt == "right" and chickenIsAt == "boatLeft" and grainIsAt == "left":
                 # The reply that the user will receive after sending a request/package 
                 reply = """\nCurrent state of the River Crossing World:
                 [ grain \ \_ man + chicken _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox ]\n"""
@@ -424,7 +468,7 @@ while 1:
                 # Print what action the client performed, and from which IP         
                 print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
                 
-            elif foxIsAt == "right" and chickenIsAt == "left" and grainIsAt == "leftBoat":
+            elif foxIsAt == "right" and chickenIsAt == "left" and grainIsAt == "boatLeft":
                 # The reply that the user will receive after sending a request/package 
                 reply = """\nCurrent state of the River Crossing World:
                 [ chicken \ \_ man + grain _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox ]\n"""
@@ -434,8 +478,48 @@ while 1:
                 # Print what action the client performed, and from which IP         
                 print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
                 
+            elif foxIsAt == "right" and chickenIsAt == "left" and grainIsAt == "right":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [ chicken \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox grain ]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
+                
+            elif foxIsAt == "right" and chickenIsAt == "boatLeft" and grainIsAt == "boatLeft":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [ chicken \ \_ man + grain _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox ]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
+                
+            elif foxIsAt == "right" and chickenIsAt == "boatLeft" and grainIsAt == "right":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [---\ \_ man + chicken _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox grain ]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
+                
         if boatIsAt == "right":
-            if chickenIsAt == "boatRight" and grainIsAt == "left" and foxIsAt == "left":
+            if chickenIsAt == "right" and grainIsAt == "right" and foxIsAt == "right":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ /fox grain chicken]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
+                
+            elif chickenIsAt == "boatRight" and grainIsAt == "left" and foxIsAt == "left":
                 # The reply that the user will receive after sending a request/package 
                 reply = """\nCurrent state of the River Crossing World:
                 [ grain fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + chicken _/ /---]\n"""
@@ -445,24 +529,104 @@ while 1:
                 # Print what action the client performed, and from which IP         
                 print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
                 
-            elif grainIsAt == "boatRight" and chickenIsAt == "left" and foxIsAt == "left":
+            elif chickenIsAt == "right" and grainIsAt == "left" and foxIsAt == "left":
                 # The reply that the user will receive after sending a request/package 
                 reply = """\nCurrent state of the River Crossing World:
-                [ chicken fox \ \_ man + grain _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ /---]\n"""
+                [ grain fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken ]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
+                
+            elif chickenIsAt == "right" and grainIsAt == "boatRight" and foxIsAt == "left":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [ fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + grain _/ / chicken ]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply                
+                
+            elif chickenIsAt == "right" and grainIsAt == "left" and foxIsAt == "boatRight":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [ grain \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + fox _/ / chicken ]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply                
+                
+            elif grainIsAt == "right" and chickenIsAt == "left" and foxIsAt == "right":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [ chicken \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / fox grain ]\n"""
 
                 # Send the reply to the client    
                 s.sendto(reply, addr)
                 # Print what action the client performed, and from which IP         
                 print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
             
-            elif foxIsAt == "boatLeft" and chickenIsAt == "left" and grainIsAt == "left":
+            elif grainIsAt == "right" and chickenIsAt == "left" and foxIsAt == "boatRight":
                 # The reply that the user will receive after sending a request/package 
                 reply = """\nCurrent state of the River Crossing World:
-                [ chicken grain \ \_ man + fox _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ /---]\n"""
+                [ chicken \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + fox _/ / grain ]\n"""
 
                 # Send the reply to the client    
                 s.sendto(reply, addr)
                 # Print what action the client performed, and from which IP         
-                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply            
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply  
+                
+            elif foxIsAt == "right" and chickenIsAt == "left" and grainIsAt == "boatRight":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [ chicken \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + grain _/ / fox ]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
+
+            elif chickenIsAt == "right" and grainIsAt == "right" and foxIsAt == "left":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [ fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / grain chicken ]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
+
+            elif chickenIsAt == "right" and grainIsAt == "left" and foxIsAt == "right":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [ grain \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / fox chicken ]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
+
+            elif chickenIsAt == "boatRight" and grainIsAt == "right" and foxIsAt == "left":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [ fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + chicken _/ / grain ]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
+                
+            elif chickenIsAt == "boatRight" and grainIsAt == "right" and foxIsAt == "right":
+                # The reply that the user will receive after sending a request/package 
+                reply = """\nCurrent state of the River Crossing World:
+                [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + chicken _/ / fox grain ]\n"""
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
 
 s.close()        
