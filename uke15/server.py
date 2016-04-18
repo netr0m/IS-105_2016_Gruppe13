@@ -151,13 +151,23 @@ while 1:
             data = "chicken"
             chickenIsAt = "right"
             
-            # The reply that the user will receive after sending a request/package 
-            reply = "You put the " + data + " on the dock.\n" + "The " + data + " is on the right dock\n"
+            # If the chicken, the grain and the fox are on the right:
+            if chickenIsAt == "right" and grainIsAt == "right" and foxIsAt == "right":
+                reply = "You won the game! Congratulations\nRestarting the game.\n"
+                # Send the reply to the client
+                s.sendto(reply, addr)
+                # Print what outcome occured
+                print 'The client won the game! (from [' + addr[0] + ':' + str(addr[1]) + '])'
+                execfile("server.py")
             
-            # Send the reply to the client    
-            s.sendto(reply, addr)
-            # Print what object the client selected, and from which IP
-            print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip() + ", " + chickenIsAt
+            else:            
+                # The reply that the user will receive after sending a request/package 
+                reply = "You put the " + data + " on the dock.\n" + "The " + data + " is on the right dock\n"
+            
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what object the client selected, and from which IP
+                print 'Object put on dock (from [' + addr[0] + ':' + str(addr[1]) + ']): ' + data.strip() + ", " + chickenIsAt            
 
     # If data == "S" (put grain on dock):   
     elif data == "S":
@@ -227,7 +237,7 @@ while 1:
                 reply = "You lost the game..\nThe chicken ate the grain.\nRestarting the game.\n"
                 # Send the reply to the client    
                 s.sendto(reply, addr)
-                # Print what object the client selected, and from which IP
+                # Print what outcome occured
                 print 'Game over.. Chicken ate the grain (from [' + addr[0] + ':' + str(addr[1]) + '])'
                 execfile("server.py")
             
@@ -236,8 +246,17 @@ while 1:
                 reply = "You lost the game..\nThe fox ate the chicken.\nRestarting the game.\n"
                 # Send the reply to the client    
                 s.sendto(reply, addr)
-                # Print what object the client selected, and from which IP
+                # Print what outcome occured
                 print 'Game over.. Fox ate the chicken (from [' + addr[0] + ':' + str(addr[1]) + '])'
+                execfile("server.py")
+                
+            # If the chicken, the grain and the fox are on the right:
+            elif chickenIsAt == "right" and grainIsAt == "right" and foxIsAt == "right":
+                reply = "You won the game! Congratulations\nRestarting the game.\n"
+                # Send the reply to the client
+                s.sendto(reply, addr)
+                # Print what outcome occured
+                print 'The client won the game! (from [' + addr[0] + ':' + str(addr[1]) + '])'
                 execfile("server.py")
             
             # If chicken is in the boat, on the left side:
@@ -271,7 +290,7 @@ while 1:
                     reply = "You lost the game.. The fox ate the chicken.\n Restarting the game.\n"
                     # Send the reply to the client    
                     s.sendto(reply, addr)
-                    # Print what object the client selected, and from which IP
+                    # Print what outcome occured
                     print 'Game over.. Fox ate the chicken(from [' + addr[0] + ':' + str(addr[1]) + '])'
                     execfile("server.py")
 
@@ -293,7 +312,7 @@ while 1:
                 reply = "You lost the game..\nThe chicken ate the grain.\nRestarting the game.\n"
                 # Send the reply to the client    
                 s.sendto(reply, addr)
-                # Print what object the client selected, and from which IP
+                # Print what outcome occured
                 print 'Game over.. Chicken ate the grain (from [' + addr[0] + ':' + str(addr[1]) + '])'
                 execfile("server.py")
             
@@ -628,5 +647,14 @@ while 1:
                 s.sendto(reply, addr)
                 # Print what action the client performed, and from which IP         
                 print 'Current state (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
+            
+            else:
+                # The reply that the user will receive after sending a request/package 
+                reply = "Error. Game restarted"
+
+                # Send the reply to the client    
+                s.sendto(reply, addr)
+                # Print what action the client performed, and from which IP         
+                print 'Error occured (game over) (from [' + addr[0] + ':' + str(addr[1]) + ']):\n' + reply
 
 s.close()        
