@@ -21,6 +21,7 @@ timeDict = Timer("inx(x,n)",
 print("N", "\t", "List", "\t", "Dict")
 for size in range(1000, 100000+1, 5000):
  n = size
- list_secs = timeList.repeat(5,5)
- dict_secs = timeDict.repeat(5,5)
+ # Repeat 10x10 times (100 times)
+ list_secs = timeList.repeat(10,10)
+ dict_secs = timeDict.repeat(10,10)
  print(n, "\t", min(list_secs), "\t", min(dict_secs))

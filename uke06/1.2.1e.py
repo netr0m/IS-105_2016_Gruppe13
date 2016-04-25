@@ -88,4 +88,4 @@ def run(inFile, outFile):
 # Change 'hamlet.txt' to 'shakespeare.txt' to encode complete_shakespeare.txt
 if __name__ == '__main__':
     run('hamlet.txt', 'output.txt')
-            
+print "File compressed"
