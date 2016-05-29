@@ -67,13 +67,14 @@ output1.txt er den komprimerte versjonen av complete_shakespeare.txt
 
 | Input | Opprinnelig størrelse | Output | Komprimert størrelse | Komprimeringsgrad |
 | --- | --- | --- | --- | --- |
-| hamlet.txt | 180 kb | output.txt | 181 kb | + 0.55%, altså 0.55% større |
-| complete_shakespeare.txt | 2080 kb | output1.txt | 2033 kb | 97.7%, altså 2,3% mindre |
+| hamlet.txt | 180 kb | output.txt | 2 kb | 98.88888888888889 % |
+| complete_shakespeare.txt | 2080 kb | output1.txt | 49 kb | 97.64423076923077 % |
+| shakespeare.txt | 5459 kb | output2.txt | 131 kb | 97.60029309397326 % |
 
-Encoding av inputfile tok veldig lang tid, spesielt shakespeare.txt, noe som kommer grunnet tabellstørrelsen brukt i koden.
+hamlet.txt ble komprimert til 2 kb, altså 98.88 % mindre enn originalfilen (180 kb).
 
-Hamlet.txt ble større (+0.55%) enn originalfilen, mens filen complete_shakespeare.txt ble 2,3% mindre.
+complete_shakespeare.txt ble komprimert til 49 kb, altså 97,64 % mindre enn originalfilen (2080 kb).
 
-Når vi prøvde å kjøre gjennom filen shakespeare.txt (5.33mb), brukte den lang tid og endte opp med feilmeldingen: "Fatal Python error: deallocating None. This application has requested the Runtime to terminate it in an unusual way.
-Please contact the application's support team for more information." hver gang. Vi klarte derfor ikke kjøre igjennom denne filen.
-Vi mistenker at dette har med størrelsen på filen å gjøre, ettersom den er ca. 3000 ganger større enn hamlet.txt
+shakespeare.txt ble komprimert til 131 kb, altså 97.6 % mindre enn originalfilen (5459 kb).
+
+Ved første forsøk på denne komprimeringen, opplevde vi at komprimeringen tok veldig lang tid, og resultatet ble en "komprimert" fil som var større enn originalfilen. Dette skjedde på grunn av tabellstørrelsen vi hadde brukt (4095), og når denne ble redusert, opplevde vi at komprimeringen gikk raskere og størrelsen på output ble mye mindre enn orignalfilens størrelse.
