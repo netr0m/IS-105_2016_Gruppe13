@@ -24,6 +24,18 @@ def code():
     tab[11] = 'l'
     tab[12] = 'm'
     tab[13] = 'n'
+    tab[14] = 'o'
+    tab[15] = 'p'
+    tab[16] = 'q'
+    tab[17] = 'r'
+    tab[18] = 's'
+    tab[19] = 't'
+    tab[20] = 'u'
+    tab[21] = 'v'
+    tab[22] = 'w'
+    tab[23] = 'x'
+    tab[24] = 'y'
+    tab[25] = 'z'
     
     return tab
 
