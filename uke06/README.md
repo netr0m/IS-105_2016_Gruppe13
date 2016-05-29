@@ -1,9 +1,8 @@
-# ICA03 UKE 6
+# ICA03 / UKE 6
 
-**Oppgave 1.2.1**
-```sh
-a)
-```
+### Oppgave 1.2.1
+
+#### a)
 
 | **Input** | **Output Sequence** | **New dictionary entry** |
 | --------- | --------------------| ------------------------ |
@@ -27,19 +26,18 @@ Hvis vi går ut fra at hvert symbol består av 8 bits, blir det da 8 * 22 bits s
 
 Format for tabell hentet fra: https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch
 
-```sh
-b)
-```
+
+#### b)
+
 **Se filen oppg_1.2.1b.py for koden**
 
-```sh
-c)
-```
+
+#### c)
+
 Komprimeringsgraden er 45,45%
 
-```sh
-d)
-```
+#### d)
+
 **Se filen oppg_1.2.1d.py for koden**
 
 B C C A C B C C C C C C C C C C C A C C C A
@@ -58,17 +56,15 @@ Den opprinnelige meldingen var på 176 bits, og ved bruk av Huffman coding har v
 
 For hvert tegn I LZW er det 8 bits. Mens i Huffman er det kun 1-2 bits per tegn. Komprimeringsgraden er derfor mer effektiv for den gitte teksten.
 
-```sh
-e)
-```
+#### e)
+
 Se filen 1.2.1e.py for koden, og filene output.txt og output1.txt for resultat.
 Vi har kun fått til encoding, og ikke decoding.
 output.txt er den komprimerte versjonen av hamlet.txt
 output1.txt er den komprimerte versjonen av complete_shakespeare.txt
 
-```sh
-f)
-```
+#### f)
+
 | Input | Opprinnelig størrelse | Output | Komprimert størrelse | Komprimeringsgrad |
 | --- | --- | --- | --- | --- |
 | hamlet.txt | 180 kb | output.txt | 181 kb | + 0.55%, altså 0.55% større |
