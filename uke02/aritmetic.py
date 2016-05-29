@@ -13,7 +13,4 @@ def dele(x,y):
     return x / y
 
 def kvadratrot(x,y):
-    return x ** y
-    
-def rest(x,y):
-    return x % y
+    return x * y
