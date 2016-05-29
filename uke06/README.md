@@ -70,7 +70,7 @@ output1.txt er den komprimerte versjonen av complete_shakespeare.txt
 | hamlet.txt | 180 kb | output.txt | 181 kb | + 0.55%, altså 0.55% større |
 | complete_shakespeare.txt | 2080 kb | output1.txt | 2033 kb | 97.7%, altså 2,3% mindre |
 
-Encoding av inputfile tok veldig lang tid, spesielt shakespeare.txt, noe som sannsynligvis kommer av en feil i koden.
+Encoding av inputfile tok veldig lang tid, spesielt shakespeare.txt, noe som kommer grunnet tabellstørrelsen brukt i koden.
 
 Hamlet.txt ble større (+0.55%) enn originalfilen, mens filen complete_shakespeare.txt ble 2,3% mindre.
 
