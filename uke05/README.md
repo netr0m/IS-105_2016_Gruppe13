@@ -1,20 +1,18 @@
 # ICA 02 / UKE 5
 Våre besvarelser for ICA 02
-```sh
-a)
-```
+
+#### a)
 Se filene UiA Fakultet.pdf og oppg_1.2.1.py for vår besvarelse.
 
-```sh
-b)
-```
+#### b)
+
 Man får minst informasjon fra fakultetet for Økonomi og Samfunnsfag.
 Dette fordi det er 29,3% sannsynlighet for at en gitt student tilhører dette fakultetet.
 Se også filen oppg_1.2.1.py for besvarelse.
 
-```sh
-c)
-```
+
+#### c)
+
 Se filen 1.2.1c.png for vårt Huffman Tre.
 
 | **Fakultet** | **Kode** | **Kodelengde** |
@@ -26,9 +24,9 @@ Se filen 1.2.1c.png for vårt Huffman Tre.
 | Lærerutdanningen | 110 | 3 bits |
 | Kunstfag | 111 | 3 bits |
 
-```sh
-d)
-```
+
+#### d)
+
 | | **Helse- og idrettsfag** | **Humaniora og pedagogikk** | **Kunstfag** | **Teknologi og realfag** | **Lærerutdanningen** | **Økonomi og samfunnsvitenskap** |
 | --- | --- | --- | --- | --- | --- | --- |
 | Antall studenter per fakultet | 1829 | 1525 | 420 | 2166 | 1506 | 3093 |
@@ -56,7 +54,6 @@ Svaret her blir 242 bits, som blir delt på 100, altså 2.42 bits per student.
 Gjennom å regne ut ved bruk av entropi har vi oppnådd noen bits (18, for å være nøyaktig) mindre enn det vi gjorde ved bruk av Huffman-metoden.
 Grunnen til dette er at sistnevnte metode ikke er optimal når det gjelder komprimering. 
 
-```sh
-e)
-```
+
+#### e)
 Se filen 1.2.1e.py
