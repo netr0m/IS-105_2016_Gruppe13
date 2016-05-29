@@ -1,5 +1,5 @@
 import unittest
-from not_working_poker import poker_hand
+from poker import poker_hand
 
 class PokerTest(unittest.TestCase):
     def setUp(self):
