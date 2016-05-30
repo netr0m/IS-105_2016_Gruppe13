@@ -1,5 +1,6 @@
 # IS-105_2016_Gruppe13
 Repository for gruppe 13, UiA.
+**Gruppemedlemmer:** Morten Amundsen, Nora Krogh, Erlend Sætre, Marius Fosseli, Joakim Kilen
 
 Hvis du skal laste opp f.eks. en fil, last opp til develop-branch først. Master branch er kun til ferdige oppgaver.
 Hvis du ønsker å laste opp til develop-branch med cmd/git bash, MÅ du endre på hvilken branch du bruker. Dette gjøres ved å skrive følgende:
