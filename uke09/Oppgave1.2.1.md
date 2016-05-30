@@ -1,8 +1,4 @@
-# ICA06 UKE 9
-## Gruppe 13:
-Morten Amundsen, Nora Krogh, Erlend Sætre, Marius Fosseli, Joakim Kilen
-
-### Oppgave 1.2.1
+# Oppgave 1.2.1
 
 #### a)
 
