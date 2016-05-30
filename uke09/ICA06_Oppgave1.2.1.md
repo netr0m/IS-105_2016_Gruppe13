@@ -2,10 +2,10 @@
 ## Gruppe 13:
 Morten Amundsen, Nora Krogh, Erlend Sætre, Marius Fosseli, Joakim Kilen
 
-**Oppgave 1.2.1**
-```sh
-a)
-```
+### Oppgave 1.2.1
+
+#### a)
+
 ###### 1 = True, 0 = False
 #### NOT Gate
 0 er ikke 1
@@ -56,9 +56,9 @@ Hvis A og B er False, blir output True
 | 1 | 0 | 0 |
 | 1 | 1 | 0 |
 
-```sh
-b)
-```
+
+#### b)
+
 #### Turing machine
 | **Tilstand** | **Symbol** | **Skriver** | **Operasjon** | **Resultat** |
 | --- | --- | --- | --- | --- |
@@ -76,9 +76,9 @@ Når prosessen når "Stop Tilstand", står det 1000B på "tape".
 
 For å komme til "Stop Tilstand" kreves det totalt 9 operasjoner.
 
-```sh
-c)
-```
+
+#### c)
+
 #### "Elve-krysningsproblemet"
 En kort oppsummering av steg som kreves for å komme over elven:
 ```
@@ -92,3 +92,6 @@ En kort oppsummering av steg som kreves for å komme over elven:
 ```
 
 Forskjellen mellom prosessen beskrevet i avsnitt 4.1.3 og i videoen, er at løsningen som ble brukt i videoen har angitt "states" på forhånd, og beskriver hvordan omgivelsene fungerer. I 4.1.3 eksemplet blir handlingene beskrevet som en kombinasjon av kontroll på systemet og området den kontrollerer.
+
+#### d)
+Vår besvarelse på oppgave 1.2.1 d) er filen "1.2.1d.py".
