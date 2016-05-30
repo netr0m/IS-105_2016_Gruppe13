@@ -1,5 +1,5 @@
 # ICA 06 / UKE 9
-####Se filene ICA06_Oppgave1.2.1.md og 1.2.1d.py for vår besvarelse på oppgavene.
+#### Se filene "Oppgave_1.2.1.md" og "1.2.1d.py" for vår besvarelse på oppgavene.
 
 Mappa "Janis_sin_versjon" er koden Janis la ut på Fronter, og er ikke bearbeidet av oss.
 Vi valgte heller å bruke en annen kode som utgangspunkt.
