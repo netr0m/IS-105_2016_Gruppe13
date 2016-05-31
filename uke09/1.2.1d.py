@@ -1,127 +1,446 @@
 # -*- coding: utf-8 -*-
 # Gruppe 13: Morten Amundsen, Nora Krogh, Marius Fosseli, Erlend Sætre, Joakim Kilen
-# Denne koden er basert på/inspirert av http://codepad.org/cywKyxXO
 
-print """
-A man has to get across a river with a chicken, a fox, and a bag of grain.
-The boat can only bring the man and one of the objects at the same time.
-If the man leaves the fox alone with the chicken, the fox will eat it.
-If the man leaves the chicken alone with the grain, the chicken will eat it.
-"""
+# Set the initial state of the world
+# "left", "boatLeft", "boatRight", "right":
+boatIsAt = "left"
+chickenIsAt = "left"
+grainIsAt = "left"
+foxIsAt = "left"
 
-# Solution to the problem:
-#
-# The man has to transport the chicken over to the right side of the river, then come back alone.
-# He then has to bring the grain, and transport it to the right side.
-# He must then transport the chicken back to the left side.
-# Now he must transport the fox over to the right side.
-# Finally, he must go back, pick up the chicken, and transport it to the right side.
+# Game won, or game over
+gameEnd = False
 
-# A configuration is a nested tuple: ((left,right),desc)
-# left and right are sets representing the entities on each shore
-# and 'desc' is a description how this configuration was reached
-
-man,chicken,grain,fox=("man","chicken","grain","fox")
-objects=(chicken,grain,fox,None)
-
-# Define that chicken + grain alone, or fox + chicken alone results in game over.
-gameover=(set((chicken,grain)), set((fox,chicken)))
-
-# return whether an undesirable situation occurs
-def lost(cfg):
-    for shore in cfg[0]:
-        if man not in shore:
-            for forbidden in gameover:
-                if shore.issuperset(forbidden):
-                    return True
-    return False
-
-# return True when the end condition is reached (when all entities are on the right shore)
-def done(cfg):
-    left,right=cfg[0]
-    return left==set()
+print """\nCurrent state of the River Crossing World:
+                [ chicken grain fox \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ /---]\n"""
+while(gameEnd == False):
+    # Make the user choose an action to perform
+    userchoice = int(raw_input("""Select one of the following options to begin:
+    1. Put an object in the boat
+    2. Put an object on the dock
+    3. Row to the other side\n"""))
     
-# Let the man go across the river, taking an object with him.
-# If 'item' is 'None', the man doesn't transport anything
-# Return the new configuration, or None if the crossing can't be performed
-# because the item is not on the same shore as the man.
-def boat(cfg,item):
-    left,right=[set(x) for x in cfg[0]] # make copies, because 'left' and 'right' will be mutated
-    # determine on which shore the man is, and to which shore he will boat
-    if man in left:
-        src,dst=left,right
-    else:
-        src,dst=right,left
-    # make sure that if there's an item to carry, it is on the same side as the man
-    if item and not item in src:
-        return None
-    # Transport the man and possibly an item
-    desc="--> Going right [---\ \_ man " if man in left else "<-- Going left [---\ ~~~~~~~~~~~~~~~~ \_ man "
-    src.remove(man)
-    dst.add(man)
-    if item:
-        src.remove(item)
-        dst.add(item)
-        desc+= "+ " +item + " _/ ~~~~~~~~~~~~~~~~ /---]"
-    else:
-        desc+="_/ /---]"
-    return ((left,right),desc) # return the resulting configuration
-
-# pretty-print a configuration
-def printcfg(cfg,level=0):
-    left,right=cfg[0]
-    verdict="Game Over!" if lost(cfg) else "(Safe!)"
-    print "    "*level,", ".join(left),"  ~~~  ",", ".join(right),cfg[1],verdict
-
-# given a certain configuration, generate the configurations that could result from it
-def onegeneration(cfg):
-    followups=[]
-    for item in objects:
-        followup=boat(cfg,item)
-        if not followup: continue
-        followups.append(followup)
-    return followups
-
-# recursively generate from a given configuration
-def generate(cfg,level=0):
-    solutionstack.extend([None]*(level-len(solutionstack)+1))
-    solutionstack[level]=cfg[1]
-    printcfg(cfg,level)
-    childs=onegeneration(cfg)
-    for child in childs:
-        if lost(child): # skip configurations which are not allowed
-            continue
-        if child[0] in previouscfgs: # skip shore configurations which have been seen before
-            continue
-        previouscfgs.append(child[0])
-        generate(child,level+1)
-
-# starting configuration
-cfg=((set((man,chicken,grain,fox)), set()),"")
-
-# this records any previously encountered configurations
-previouscfgs=[cfg[0]]
-
-# keep a solution stack for later printing
-solutionstack=[]
-
-# go!
-print "Check what solutions are safe:"
-generate(cfg)
-
-print "\nThe solution - Step by Step:"
-for step in solutionstack:
-    if step:
-        print "\n",step
+    # 1, put something in the boat
+    if userchoice == 1:
+        # Select an object
+        objct = raw_input("Type to select either 'Chicken', 'Grain', or 'Fox' to put in the boat: ")
+        objct = objct.lower()
         
-print """
-[chicken + grain + fox + man ---\ \_ _/ ~~~~~~~~~~~~~~~~ /---]
-1. The man brings the chicken to the right side.
-2. The man goes back.
-3. The man brings the grain to the right side.
-4. The man picks up the chicken and brings it back to the left side.
-5. The man picks up the fox, and brings it to the right side.
-6. The man goes back to the left side.
-7. The man brings the chicken to the right side.
-[---\ ~~~~~~~~~~~~~~~~ \_ _/ /--- man + chicken + fox + grain]
-"""
+        # If the object chosen is chicken
+        if objct == "chicken":
+            if chickenIsAt == "left":
+                if boatIsAt == "left":
+                    chickenIsAt = "boatLeft"
+                    if chickenIsAt == "boatLeft" and grainIsAt == "left" and foxIsAt == "left":
+                        print """\nCurrent state of the River Crossing World:
+                        [ grain fox \ \_ man + chicken _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ /---]\n"""
+                        
+                    elif chickenIsAt == "boatLeft" and grainIsAt == "right" and foxIsAt == "left":
+                        print """\nCurrent state of the River Crossing World:
+                        [ fox \ \_ man + chicken _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / grain ]\n"""
+                        
+                    elif chickenIsAt == "boatLeft" and grainIsAt == "left" and foxIsAt == "right":
+                        print """\nCurrent state of the River Crossing World:
+                        [ grain \ \_ man + chicken _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox ]\n"""
+                        
+                    elif chickenIsAt == "boatLeft" and grainIsAt == "right" and foxIsAt == "right":
+                        print """\nCurrent state of the River Crossing World:
+                        [---\ \_ man + chicken _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox grain ]\n"""
+                        
+                elif boatIsAt == "right":
+                    print "The boat is on the other side."
+                
+            elif chickenIsAt == "right":
+                if boatIsAt == "right":
+                    chickenIsAt = "boatRight"
+                    if chickenIsAt == "boatRight" and grainIsAt == "left" and foxIsAt == "left":
+                        print """\nCurrent state of the River Crossing World:
+                        [ grain fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + chicken _/ /---]\n"""
+                        
+                    elif chickenIsAt == "boatRight" and grainIsAt == "right" and foxIsAt == "left":
+                        print """\nCurrent state of the River Crossing World:
+                        [ fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + chicken _/ / grain ]\n"""
+                        
+                    elif chickenIsAt == "boatRight" and grainIsAt == "left" and foxIsAt == "right":
+                        print """\nCurrent state of the River Crossing World:
+                        [ grain \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + chicken _/ / fox ]\n"""
+                        
+                    elif chickenIsAt == "boatRight" and grainIsAt == "right" and foxIsAt == "right":
+                        print """\nCurrent state of the River Crossing World:
+                        [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + chicken _/ / fox grain ]\n"""
+                        
+                elif boatIsAt == "right":
+                    print "The boat is on the other side."
+        
+        # If the object chosen is grain
+        elif objct == "grain":
+            if grainIsAt == "left":
+                if boatIsAt == "left":
+                    grainIsAt = "boatLeft"
+                    if grainIsAt == "boatLeft" and chickenIsAt == "left" and foxIsAt == "left":
+                        print """\nCurrent state of the River Crossing World:
+                        [ chicken fox \ \_ man + grain _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ /---]\n"""
+                        
+                    elif grainIsAt == "boatLeft" and chickenIsAt == "right" and foxIsAt == "left":
+                        print """\nCurrent state of the River Crossing World:
+                        [ fox \ \_ man + grain _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / chicken ]\n"""
+                        
+                    elif grainIsAt == "boatLeft" and chickenIsAt == "left" and foxIsAt == "right":
+                        print """\nCurrent state of the River Crossing World:
+                        [ chicken \ \_ man + grain _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox ]\n"""
+                        
+                    else:
+                        print "Game over! Restarting game..."
+                        execfile("1.2.1d.py")
+                        
+                elif boatIsAt == "right":
+                    print "The boat is on the other side."
+                
+                    
+            elif grainIsAt == "right":
+                if boatIsAt == "right":
+                    grainIsAt = "boatRight"                    
+                    if grainIsAt == "boatRight" and chickenIsAt == "right" and foxIsAt == "left":
+                        print """\nCurrent state of the River Crossing World:
+                        [ fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + grain _/ / chicken ]\n"""
+                        
+                    elif grainIsAt == "boatRight" and chickenIsAt == "left" and foxIsAt == "right":
+                        print """\nCurrent state of the River Crossing World:
+                        [ chicken \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + grain _/ / fox ]\n"""
+                        
+                    elif grainIsAt == "boatRight" and chickenIsAt == "right" and foxIsAt == "right":
+                        print """\nCurrent state of the River Crossing World:
+                        [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + grain _/ / chicken fox ]\n"""
+                        
+                    else:
+                        print "Game over! Restarting game..."
+                        execfile("1.2.1d.py")                
+                    
+                elif boatIsAt == "right":
+                    print "The boat is on the other side."                
+                    
+            
+        # If the object chosen is fox
+        elif objct == "fox":
+            if foxIsAt == "left":
+                if boatIsAt == "left":
+                    foxIsAt = "boatLeft"
+                    if foxIsAt == "boatLeft" and grainIsAt == "left" and chickenIsAt == "left":
+                        print """\nCurrent state of the River Crossing World:
+                        [ chicken grain \ \_ man + fox _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ /---]\n"""
+                        
+                    elif foxIsAt == "boatLeft" and grainIsAt == "right" and chickenIsAt == "left":
+                        print """\nCurrent state of the River Crossing World:
+                        [ chicken \ \_ man + fox _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / grain ]\n"""
+                        
+                    elif foxIsAt == "boatLeft" and grainIsAt == "left" and chickenIsAt == "right":
+                        print """\nCurrent state of the River Crossing World:
+                        [ grain \ \_ man + fox _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / chicken ]\n"""             
+                        
+                    else:
+                        print "Game over! Restarting game..."
+                        execfile("1.2.1d.py")
+                        
+                elif boatIsAt == "right":
+                    print "The boat is on the other side."                
+                    
+                
+            elif foxIsAt == "right":
+                if boatIsAt == "right":
+                    foxIsAt = "boatRight"
+                    if foxIsAt == "boatRight" and grainIsAt == "right" and chickenIsAt == "left":
+                        print """\nCurrent state of the River Crossing World:
+                        [ chicken \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + fox _/ / grain ]\n"""
+                        
+                    elif foxIsAt == "boatRight" and grainIsAt == "left" and chickenIsAt == "right":
+                        print """\nCurrent state of the River Crossing World:
+                        [ grain \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + fox _/ / chicken ]\n"""
+                        
+                    elif foxIsAt == "boatRight" and grainIsAt == "right" and chickenIsAt == "right":
+                        print """\nCurrent state of the River Crossing World:
+                        [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + fox _/ / chicken grain ]\n"""
+                        
+                    else:
+                        print "Game over! Restarting game..."
+                        execfile("1.2.1d.py")
+                        
+                elif boatIsAt == "right":
+                    print "The boat is on the other side."
+                
+        # Object chosen does not exist        
+        else:
+            print "There is no such object"
+    
+    elif userchoice == 2:
+        objct = raw_input("Type to select either 'Chicken', 'Grain', or 'Fox' to put on the dock: ")
+        objct = objct.lower()
+        if objct == "chicken":
+            if chickenIsAt == "boatLeft":
+                chickenIsAt = "left"
+                if chickenIsAt == "left" and grainIsAt == "left" and foxIsAt == "left":
+                    print """\nCurrent state of the River Crossing World:
+                    [ chicken grain fox \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ /---]\n"""
+                    
+                elif chickenIsAt == "left" and grainIsAt == "right" and foxIsAt == "left":
+                    print """\nCurrent state of the River Crossing World:
+                    [ chicken fox \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / grain ]\n"""
+                    
+                elif chickenIsAt == "left" and grainIsAt == "left" and foxIsAt == "right":
+                    print """\nCurrent state of the River Crossing World:
+                    [ chicken grain \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox ]\n"""
+                    
+                elif chickenIsAt == "left" and grainIsAt == "right" and foxIsAt == "right":
+                    print """\nCurrent state of the River Crossing World:
+                    [ chicken \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox grain ]\n"""
+                
+            elif chickenIsAt == "boatRight":
+                chickenIsAt = "right"
+                if chickenIsAt == "right" and grainIsAt == "left" and foxIsAt == "left":
+                    print """\nCurrent state of the River Crossing World:
+                    [ grain fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken ]\n"""
+                    
+                elif chickenIsAt == "right" and grainIsAt == "right" and foxIsAt == "left":
+                    print """\nCurrent state of the River Crossing World:
+                    [ fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken grain ]\n"""
+                    
+                elif chickenIsAt == "right" and grainIsAt == "left" and foxIsAt == "right":
+                    print """\nCurrent state of the River Crossing World:
+                    [ grain \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken fox ]\n"""
+                    
+                elif chickenIsAt == "right" and grainIsAt == "right" and foxIsAt == "right":
+                    print """\nCurrent state of the River Crossing World:
+                    [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken fox grain ]\n"""
+                    print "You won the game! Congratulations.\nRestarting the game..."
+                    exec("1.2.1d.py")
+            
+        elif objct == "grain":
+            if grainIsAt == "boatLeft":
+                grainIsAt = "left"
+                if grainIsAt == "left" and chickenIsAt == "left" and foxIsAt == "left":
+                    print """\nCurrent state of the River Crossing World:
+                    [ chicken grain fox \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ /---]\n"""
+                    
+                elif grainIsAt == "left" and chickenIsAt == "right" and foxIsAt == "left":
+                    print """\nCurrent state of the River Crossing World:
+                    [ grain fox \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / chicken ]\n"""
+                    
+                elif grainIsAt == "left" and chickenIsAt == "left" and foxIsAt == "right":
+                    print """\nCurrent state of the River Crossing World:
+                    [ chicken grain \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox ]\n"""
+                    
+                else:
+                    print "Game over! Restarting game..."
+                    execfile("1.2.1d.py")
+                
+            elif grainIsAt == "boatRight":
+                grainIsAt = "right"                    
+                if grainIsAt == "right" and chickenIsAt == "right" and foxIsAt == "left":
+                    print """\nCurrent state of the River Crossing World:
+                    [ fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken grain ]\n"""
+                    
+                elif grainIsAt == "right" and chickenIsAt == "left" and foxIsAt == "right":
+                    print """\nCurrent state of the River Crossing World:
+                    [ chicken \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / grain fox ]\n"""
+                    
+                elif grainIsAt == "right" and chickenIsAt == "right" and foxIsAt == "right":
+                    print """\nCurrent state of the River Crossing World:
+                    [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken fox grain ]\n"""
+                    print "You won the game! Congratulations.\nRestarting the game..."
+                    exec("1.2.1d.py")
+                    
+                else:
+                    print "Game over! Restarting game..."
+                    execfile("1.2.1d.py")
+    
+        elif objct == "fox":
+            if foxIsAt == "boatLeft":
+                foxIsAt = "left"
+                if foxIsAt == "left" and chickenIsAt == "left" and grainIsAt == "left":
+                    print """\nCurrent state of the River Crossing World:
+                    [ chicken grain fox \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ /---]\n"""
+                    
+                elif foxIsAt == "left" and chickenIsAt == "right" and grainIsAt == "left":
+                    print """\nCurrent state of the River Crossing World:
+                    [ grain fox \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / chicken ]\n"""
+                    
+                elif foxIsAt == "left" and chickenIsAt == "left" and grainIsAt == "right":
+                    print """\nCurrent state of the River Crossing World:
+                    [ chicken fox \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / grain ]\n"""
+                    
+                else:
+                    print "Game over! Restarting game..."
+                    execfile("1.2.1d.py")                
+                
+            elif foxIsAt == "boatRight":
+                foxIsAt = "right"
+                if foxIsAt == "right" and chickenIsAt == "right" and grainIsAt == "left":
+                    print """\nCurrent state of the River Crossing World:
+                    [ grain \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken fox ]\n"""
+                    
+                elif foxIsAt == "right" and chickenIsAt == "left" and grainIsAt == "right":
+                    print """\nCurrent state of the River Crossing World:
+                    [ chicken \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / grain fox ]\n"""
+                    
+                elif foxIsAt == "right" and chickenIsAt == "right" and grainIsAt == "right":
+                    print """\nCurrent state of the River Crossing World:
+                    [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken fox grain ]\n"""
+                    print "You won the game! Congratulations.\nRestarting the game..."
+                    exec("1.2.1d.py")
+                    
+                else:
+                    print "Game over! Restarting game..."
+                    execfile("1.2.1d.py")                
+    
+        else:
+            print "There is no such object"
+    
+    elif userchoice == 3:
+        if boatIsAt == "left":
+            boatIsAt = "right"
+            
+            # CHICKEN
+            if chickenIsAt == "boatLeft" and foxIsAt == "left" and grainIsAt == "left":
+                chickenIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [ grain fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + chicken _/ /---]\n"""
+                
+            elif chickenIsAt == "boatLeft" and foxIsAt == "right" and grainIsAt == "left":
+                chickenIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [ grain \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + chicken _/ / fox ]\n"""
+                
+            elif chickenIsAt == "boatLeft" and foxIsAt == "left" and grainIsAt == "right":
+                chickenIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [ fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + chicken _/ / grain ]\n"""
+                
+            elif chickenIsAt == "boatLeft" and foxIsAt == "right" and grainIsAt == "right":
+                chickenIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + chicken _/ / grain fox ]\n"""
+                
+            # FOX
+            elif foxIsAt == "boatLeft" and chickenIsAt == "left" and grainIsAt == "left":
+                foxIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [ chicken grain \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + fox _/ /---]\n"""
+                print "Game over! Restarting game..."
+                execfile("1.2.1d.py")                
+                
+            elif foxIsAt == "boatLeft" and chickenIsAt == "right" and grainIsAt == "left":
+                foxIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [ grain \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + fox _/ / chicken ]\n"""
+                
+            elif foxIsAt == "boatLeft" and chickenIsAt == "left" and grainIsAt == "right":
+                foxIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [ chicken \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + fox _/ / grain ]\n"""
+                
+            elif foxIsAt == "boatLeft" and chickenIsAt == "right" and grainIsAt == "right":
+                foxIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + fox _/ / chicken grain ]\n"""
+
+            # GRAIN
+            elif grainIsAt == "boatLeft" and chickenIsAt == "left" and foxIsAt == "left":
+                grainIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [ chicken fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + grain _/ /---]\n"""
+                print "Game over! Restarting game..."
+                execfile("1.2.1d.py")                
+                
+            elif grainIsAt == "boatLeft" and chickenIsAt == "right" and foxIsAt == "left":
+                grainIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [ fox \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + grain _/ / chicken ]\n"""
+                
+            elif grainIsAt == "boatLeft" and chickenIsAt == "left" and foxIsAt == "right":
+                grainIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [ chicken \ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + grain _/ / fox ]\n"""
+                
+            elif grainIsAt == "boatLeft" and chickenIsAt == "right" and foxIsAt == "right":
+                grainIsAt = "boatRight"
+                print """\nCurrent state of the River Crossing World:
+                [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man + grain _/ / chicken fox ]\n"""
+                
+            else:
+                print "Game over! Restarting game..."
+                execfile("1.2.1d.py")            
+
+        elif boatIsAt == "right":
+            boatIsAt = "left"
+            
+            # CHICKEN
+            if chickenIsAt == "boatRight" and foxIsAt == "left" and grainIsAt == "left":
+                chickenIsAt = "boatLeft"
+                print """\nCurrent state of the River Crossing World:
+                [ grain fox \ \_ man + chicken _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ /---]\n"""
+                
+            elif chickenIsAt == "boatRight" and foxIsAt == "right" and grainIsAt == "left":
+                chickenIsAt = "boatLeft"
+                print """\nCurrent state of the River Crossing World:
+                [ grain \ \_ man + chicken _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox ]\n"""
+                
+            elif chickenIsAt == "boatRight" and foxIsAt == "left" and grainIsAt == "right":
+                chickenIsAt = "boatLeft"
+                print """\nCurrent state of the River Crossing World:
+                [ fox \ \_ man + chicken _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / grain ]\n"""
+                
+            elif chickenIsAt == "boatRight" and foxIsAt == "right" and grainIsAt == "right":
+                chickenIsAt = "boatLeft"
+                print """\nCurrent state of the River Crossing World:
+                [---\ \_ man + chicken _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / grain fox ]\n"""
+                
+            elif chickenIsAt == "right" and foxIsAt == "left" and grainIsAt == "left":
+                print """\nCurrent state of the River Crossing World:
+                [ grain fox \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / chicken ]\n"""
+                
+            # FOX                
+            elif foxIsAt == "boatRight" and chickenIsAt == "right" and grainIsAt == "left":
+                foxIsAt = "boatLeft"
+                print """\nCurrent state of the River Crossing World:
+                [ grain \ \_ man + fox _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / chicken ]\n"""
+                
+            elif foxIsAt == "boatRight" and chickenIsAt == "left" and grainIsAt == "right":
+                foxIsAt = "boatLeft"
+                print """\nCurrent state of the River Crossing World:
+                [ chicken \ \_ man + fox _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / grain ]\n"""
+                
+            elif foxIsAt == "boatRight" and chickenIsAt == "right" and grainIsAt == "right":
+                foxIsAt = "boatLeft"
+                print """\nCurrent state of the River Crossing World:
+                [---\ \_ man + fox _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / chicken grain ]\n"""
+                print "Game over! Restarting game..."
+                execfile("1.2.1d.py")        
+
+            # GRAIN
+            elif grainIsAt == "boatRight" and chickenIsAt == "right" and foxIsAt == "left":
+                grainIsAt = "boatLeft"
+                print """\nCurrent state of the River Crossing World:
+                [ fox \ \_ man + grain _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / chicken ]\n"""
+                
+            elif grainIsAt == "boatRight" and chickenIsAt == "left" and foxIsAt == "right":
+                grainIsAt = "boatLeft"
+                print """\nCurrent state of the River Crossing World:
+                [ chicken \ \_ man + grain _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox ]\n"""
+                
+            elif grainIsAt == "boatRight" and chickenIsAt == "right" and foxIsAt == "right":
+                grainIsAt = "boatLeft"
+                print """\nCurrent state of the River Crossing World:
+                [---\ \_ man + grain _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / chicken fox ]\n"""
+                print "Game over! Restarting game..."
+                execfile("1.2.1d.py")                   
+                
+            # EXTRA   
+            elif chickenIsAt == "left" and grainIsAt == "right" and foxIsAt == "right":
+                print """\nCurrent state of the River Crossing World:
+                [ chicken \ \_ man _/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ / fox grain ]\n"""                
+                
+            else:
+                print "Game over! Restarting game..."
+                execfile("1.2.1d.py")
+        
+    else:
+        print "Invalid choice."

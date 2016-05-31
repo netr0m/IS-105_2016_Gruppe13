@@ -9,6 +9,9 @@ import random;
 '''
 User input, checks if input is valid
 '''
+rock = "Rock"
+paper = "Paper"
+scissors = "Scissors"
 
 player = input("Please enter your choice (rock/paper/scissors): ");
 player = player.lower();
