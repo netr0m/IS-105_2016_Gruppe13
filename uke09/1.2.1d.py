@@ -211,7 +211,7 @@ while(gameEnd == False):
                     print """\nCurrent state of the River Crossing World:
                     [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken fox grain ]\n"""
                     print "You won the game! Congratulations.\nRestarting the game..."
-                    exec("1.2.1d.py")
+                    execfile("1.2.1d.py")
             
         elif objct == "grain":
             if grainIsAt == "boatLeft":
@@ -246,7 +246,7 @@ while(gameEnd == False):
                     print """\nCurrent state of the River Crossing World:
                     [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken fox grain ]\n"""
                     print "You won the game! Congratulations.\nRestarting the game..."
-                    exec("1.2.1d.py")
+                    execfile("1.2.1d.py")
                     
                 else:
                     print "Game over! Restarting game..."
@@ -285,7 +285,7 @@ while(gameEnd == False):
                     print """\nCurrent state of the River Crossing World:
                     [---\ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \_ man _/ / chicken fox grain ]\n"""
                     print "You won the game! Congratulations.\nRestarting the game..."
-                    exec("1.2.1d.py")
+                    execfile("1.2.1d.py")
                     
                 else:
                     print "Game over! Restarting game..."

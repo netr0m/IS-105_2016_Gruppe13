@@ -144,7 +144,6 @@ def gameloop():
     
     victory = False
     finished = False
-    grain = True
     
     while not finished:
         for event in pygame.event.get():
@@ -174,171 +173,151 @@ def gameloop():
                     try:
                         # Send the whole string
                         s.sendto(objct, (host, port))
-                        
-                        # Receive data from the server
-                        d = s.recvfrom(1024)
-                        # The reply that the server sent
-                        reply = d[0]
                         # The address
-                        addr = d[1]
+                        
+                        if bx == 255:
+                            if cx == 400:
+                                cx += 565
+                            elif gx == 400:
+                                gx += 565
+                            elif fox == 400:
+                                fox += 565
+                            fax += 565
+                            bx += 565   
+                        elif bx == 820:
+                            if cx == 965:
+                                cx -= 565
+                            elif gx == 965:
+                                gx -= 565
+                            elif fox == 965:
+                                fox -= 565
+                            fax -= 565
+                            bx -= 565
+                        else:
+                            pass                          
                         
                     # If an error occurs;
                     except socket.error, objct:
                         sys.exit()
-                        
-                    if bx == 255:
-                        if cx == 400:
-                            cx += 565
-                        elif gx == 400:
-                            gx += 565
-                        elif fox == 400:
-                            fox += 565
-                        fax += 565
-                        bx += 565   
-                    elif bx == 820:
-                        if cx == 965:
-                            cx -= 565
-                        elif gx == 965:
-                            gx -= 565
-                        elif fox == 965:
-                            fox -= 565
-                        fax -= 565
-                        bx -= 565
-                    else:
-                        pass                
+                                      
                 # Define what happens when the user hits "Q"
                 if event.key == pygame.K_q:
                     objct = "Q"
-
-                    # If gx (grain X-value) or fox (fox X-value) is NOT == 400,
-                    if not gx == 400 or fox == 400:
-                        # If cx (chicken X-value) is equal to 30:
-                        # Add 370 to cx, 75 to cy (moves to the boat)
-                        if cx == 30:
-                            cx += 370 
-                            cy += 75
-                      
-                        # If cx (chicken X-value) is equal to 1210:
-                        # Subtract 245 from cx, 75 from cy (moves to the boat)
-                        elif cx == 1210:
-                            cx -= 245
-                            cy += 75                       
-                        else:
-                            # Otherwise, pass
-                            pass
+                    try:
+                        # Send the whole string
+                        s.sendto(objct, (host, port))                    
+                        # If gx (grain X-value) or fox (fox X-value) is NOT == 400,
+                        if not gx == 400 or fox == 400:
+                            # If cx (chicken X-value) is equal to 30:
+                            # Add 370 to cx, 75 to cy (moves to the boat)
+                            if cx == 30:
+                                cx += 370 
+                                cy += 75
+                          
+                            # If cx (chicken X-value) is equal to 1210:
+                            # Subtract 245 from cx, 75 from cy (moves to the boat)
+                            elif cx == 1210:
+                                cx -= 245
+                                cy += 75                       
+                            else:
+                                # Otherwise, pass
+                                pass
+                    # If an error occurs;
+                    except socket.error, objct:
+                        sys.exit()                    
                             
                 if event.key == pygame.K_w:
                     objct = "W"
                     try :
                         # Send the whole string
                         s.sendto(objct, (host, port))
-                         
-                        # Receive data from the server
-                        d = s.recvfrom(1024)
-                        # The reply that the server sent
-                        reply = d[0]
                         # The address
-                        addr = d[1]                    
+                        
+                        
+                        if cx == 400:
+                            cx -= 370 
+                            cy -= 75
+                        elif cx == 965:
+                            cx += 245
+                            cy -= 75
+                        else:
+                            pass                        
                     # If an error occurs; 
                     except socket.error, objct:
                         sys.exit()
-                        
-                    if cx == 400:
-                        cx -= 370 
-                        cy -= 75
-                    elif cx == 965:
-                        cx += 245
-                        cy -= 75
-                    else:
-                        pass
+                    
                 if event.key == pygame.K_a:
                     objct = "A"
                     try :
                         # Send the whole string
                         s.sendto(objct, (host, port))
-                         
-                        # Receive data from the server
-                        d = s.recvfrom(1024)
-                        # The reply that the server sent
-                        reply = d[0]
                         # The address
-                        addr = d[1]
                         
+
+                        if not cx == 400 or fox == 400:
+                            if gx == 90:
+                                gx += 310 
+                                gy += 30
+                            if gx == 1170:
+                                gx -= 205
+                                gy += 30                        
+                            else:
+                                pass                        
                     # If an error occurs; 
                     except socket.error, objct: 
                         sys.exit()
-
-                    if not cx == 400 or fox == 400:
-                        if gx == 90:
-                            gx += 310 
-                            gy += 30
-                        if gx == 1170:
-                            gx -= 205
-                            gy += 30
+                        
                 if event.key == pygame.K_s:
                     objct = "S"
                     try:
                         # Send the whole string
                         s.sendto(objct, (host, port))
-                        
-                        # Receive data from the server
-                        d = s.recvfrom(1024)
-                        # The reply that the server sent
-                        reply = d[0]
                         # The address
-                        addr = d[1]
+                        
+                        
+                        if gx == 400:
+                            gx -= 310 
+                            gy -= 30
+                        if gx == 965:
+                            gx += 205
+                            gy -= 30                        
                     except socket.error, objct:
                         sys.exit()
-                        
-                    if gx == 400:
-                        gx -= 310 
-                        gy -= 30
-                    if gx == 965:
-                        gx += 205
-                        gy -= 30
+
                 if event.key == pygame.K_z:
                     objct = "Z"
                     try:
                         # Send the whole string
                         s.sendto(objct, (host, port))
-                        
-                        # Receive data from the server
-                        d = s.recvfrom(1024)
-                        # The reply that the server sent
-                        reply = d[0]
                         # The address
-                        addr = d[1]                   
+                        
+
+                        if not cx == 400 or gx == 400:
+                            if fox == 145:
+                                fox += 255 
+                                foy += 15
+                            if fox == 1120:
+                                fox -= 155
+                                foy += 15
                     except socket.error, objct:
                         sys.exit()
-                    
-                    if not cx == 400 or gx == 400:
-                        if fox == 145:
-                            fox += 255 
-                            foy += 15
-                        if fox == 1120:
-                            fox -= 155
-                            foy += 15
+                            
                 if event.key == pygame.K_x:
                     objct = "X"
                     try:
                         # Send the whole string
                         s.sendto(objct, (host, port))
-                        
-                        # Receive data from the server
-                        d = s.recvfrom(1024)
-                        # The reply that the server sent
-                        reply = d[0]
                         # The address
-                        addr = d[1]                    
+                        
+                        
+                        if fox == 400:
+                            fox -= 255 
+                            foy -= 15
+                        if fox == 965:
+                            fox += 155
+                            foy -= 15                        
                     except socket.error, objct:
                         sys.exit()
-
-                    if fox == 400:
-                        fox -= 255 
-                        foy -= 15
-                    if fox == 965:
-                        fox += 155
-                        foy -= 15
             
             # Define what outcomes are forbidden:
             #  If bx (boat X-value) equals 820, cx (chicken X-value) equals 30, and fox (fox X-value) equals 145:
@@ -358,7 +337,7 @@ def gameloop():
             if bx == 820 and cx == 30 and gx == 90:
                 forbidden(3)
             
-            # If all objects are on the right bank/dock, set victory to true = player wins the game            
+            # If all objects are on the right bank/dock, set victory to true, player wins the game            
             if fox == 1120 and gx == 1170 and cx == 1210:
                 victory = True     
     
