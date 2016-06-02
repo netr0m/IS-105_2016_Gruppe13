@@ -87,5 +87,5 @@ def run(inFile, outFile):
 # run('inFile.txt', 'output.txt') What file you want to encode, and the name of the file to be created
 # Change 'hamlet.txt' to 'shakespeare.txt' to encode complete_shakespeare.txt
 if __name__ == '__main__':
-    run('shakespeare.txt', 'output2.txt')
+    run('hamlet.txt', 'output.txt')
             

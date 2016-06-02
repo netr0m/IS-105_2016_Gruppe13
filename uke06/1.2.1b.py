@@ -36,6 +36,9 @@ def code():
     tab[23] = 'x'
     tab[24] = 'y'
     tab[25] = 'z'
+    tab[26] = ','
+    tab[27] = '.'
+    tab[28] = ' '
     
     return tab
 

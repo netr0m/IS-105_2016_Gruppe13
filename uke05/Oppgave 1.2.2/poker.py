@@ -6,7 +6,9 @@ import collections
 import itertools
 import random
 
+# Suit values
 SUIT_VALUES = ("Hearts", "Spades", "Diamonds", "Clubs")
+# Rank values
 RANK_VALUES = ("2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace")
 
 class card:

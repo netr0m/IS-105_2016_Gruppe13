@@ -1,8 +1,5 @@
-## -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 '''
-Module med eksempler i uke 04 (informasjonsteori)
-Løsninger for klasseoppgavene 25.01.2016 implementeres her
-Løsningsforslag innleveres i gruppe-repositorien.
 GRUPPENR: 13
 STUDENTER: Morten Amundsen, Nora Krogh, Erlend Sætre, Marius Fossli, Joakim Kilen
 '''
@@ -26,16 +23,19 @@ def code():
         binary[v] = binary.get(v, [])
         binary[v].append(k)   
     
-    return ascii # A suggested way to load tables in memory
+    return ascii
 
-def encode():
-    pass
-
+def encode(string):
+    '''
+    Encode some text using text from a source
+    '''
+    # Go through each character in a given string
+    return "".join([format(ord(char),'#010b')[2:] for char in string])
+            
 def decode(sourcecode,n, ascii):
     '''
     Decode a sourcecode using chunks of size n
     '''
-    # You will need a dictionary holding the mapping between binary string and ASCII chars
     
     sentence = ""    
     
@@ -46,9 +46,7 @@ def decode(sourcecode,n, ascii):
             break
         if chunk != '\n':
             
-            setence = ""            # The ascii sentence generated
-            
-            # create a s
+            # Create a sentence
             sentence = sentence + ascii[chunk]
             
     return sentence
@@ -61,6 +59,12 @@ def test():
     directly in the module.
     '''
     
+    print "Encoded from ASCII String to Binary:"
+    # The ASCII String to convert to Binary
+    print encode("Norway stun Poland 30:28 and spoil Bielecki's birthday party.")
+    print
+    print "Decoded from Binary to ASCII String:"
+    # The txt-file to convert from Binary to ASCII
     print decode('sourcecode.txt', 8, code())
 
 test()
