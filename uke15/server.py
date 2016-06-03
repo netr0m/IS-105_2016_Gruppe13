@@ -226,15 +226,15 @@ while 1:
         if x == 1:
             print 'The wolf ate the chicken. Game lost, Restarting.. (from [' + addr[0] + ':' + str(addr[1]) + ']): '
             s.close()
-            execfile("serverpygame.py")
+            execfile("server.py")
         elif x == 2:
             print 'The wolf ate the chicken. Game lost, Restarting.. (from [' + addr[0] + ':' + str(addr[1]) + ']): '
             s.close()
-            execfile("serverpygame.py")
+            execfile("server.py")
         elif x == 3:
             print 'The chicken ate the grain. Game lost, Restarting..(from [' + addr[0] + ':' + str(addr[1]) + ']): '
             s.close()
-            execfile("serverpygame.py")
+            execfile("server.py")
             
     # Define what outcomes are forbidden:
     #  If bx (boat X-value) equals 820, cx (chicken X-value) equals 30, and fox (fox X-value) equals 145:
@@ -261,5 +261,5 @@ while 1:
     if victory:
         print 'The client won the game! Restarting.. (from [' + addr[0] + ':' + str(addr[1]) + ']): '
         s.close()
-        execfile("serverpygame.py")
+        execfile("server.py")
 s.close()
